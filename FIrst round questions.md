@@ -4,11 +4,9 @@ Questionnaire for participants: <https://goo.gl/forms/YHTjQz8HcXG0AEO52>
 
 ## Scenario 1 - understanding the soundable chooser
 
------
 
 [**Video** introducing lanes, nose cone, weighting inc. always play, loop/non-loop](https://drive.google.com/file/d/0B8-mMuIk5IXDb1pEX2p6c1RNcGs/view?usp=sharing).
 
-----
 
 Here is a soundable chooser with two samples. 
 
@@ -31,11 +29,9 @@ Make a soundable chooser which has three lanes---those lanes should contain loop
 
 ## Scenario 3 - understanding the time chooser
 
------
 
 [Video introducing time choosers, multiple lanes, nose cone restrictions](https://drive.google.com/file/d/0B8-mMuIk5IXDdXdNQWJNMFMzSHc/view?usp=sharing)
 
------
 
 Here is a time chooser with two lanes.
 
@@ -56,11 +52,9 @@ Make a four bar rest.
 * Now you have made the rest, find two ways to quickly skip it.What do you think the nose cone value could be? What would happen if you gave the nose cone that value?
 * What impact would there be if you changed the weight of the lane?
 
-----
 
 [Video introducing full choosers, duration control via the time chooser, hard and soft stop](https://drive.google.com/file/d/0B8-mMuIk5IXDNjAyUG1ud0RwNkk/view?usp=sharing)
 
-----
 
 Next, take the time chooser and snap it onto the soundable chooser created in scenario 2. What is the impact of this?
 
@@ -105,11 +99,9 @@ Using the templates, create a full chooser which:
 
 ## Scenario 8 - playground
 
-----
 
 [Video - sequence](https://drive.google.com/file/d/0B8-mMuIk5IXDaTBGaHplSWs4RU0/view?usp=sharing)
 
-----
 
 Using the templates and samples available, make a piece of music which uses a sequence of three choosers. The music will be recorded and shared online. 
 
