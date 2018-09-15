@@ -79,7 +79,7 @@ Look at this Chooser and say what will happen when the Chooser is played. The `d
 ## Scenario 6 - understanding a full chooser with multiple lane times
 Here is a chooser containing a time chooser with multiple lanes.
 
-![](images/scenario6.png)
+![](images/scenario6.png){width=400px}
 
 * What do you expect to happen in the soundable chooser?
 * What will happen in the time chooser? Which lane is more likely to be selected? What are the consequences of the selection of the uppermost time chooser lane? What will be different if the lower time chooser lane is selected?
