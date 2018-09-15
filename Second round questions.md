@@ -2,40 +2,41 @@
 
 Questionnaire for participants: <https://goo.gl/forms/YHTjQz8HcXG0AEO52> 
 
-## Scenario 1 - understanding the soundable chooser
 
------
 
-**Video** introducing lanes, nose cone, weighting inc. always play, loop/non-loop.
+## Scenario 1 - understanding the Soundable Chooser
 
-----
+**Video** introducing lanes, nose cone, weighting inc. infinity, repeats inc. infinite repeat.
 
-Here is a soundable chooser with two samples. 
+
+Here is a **Soundable Chooser** with two samples. 
 
 IMAGE
 
-* If this chooser is played by itself, how many samples will play? 
+* If this Chooser is played by itself, how many samples will play? 
 * How do you know? 
-* How likely is it that the drums.wav sample will play? How could you make it more likely to play? 
-* How could you make the chooser play both samples? 
+* How likely is it that the `drums.wav` sample will play? How could you make it more likely to play? 
+* How could you make the Chooser play both samples? 
 * How would you make it play no samples?
 
 
-## Scenario 2 - creating a soundable chooser
-Make a soundable chooser which has three lanes---those lanes should contain looping drums, bass and guitar samples. Make it so that two play at once -- the drums always play, and either bass or guitar will be selected with equal probability. 
 
-* Make it so the guitar doesn’t play
+
+## Scenario 2 - creating a soundable chooser
+Make a Soundable Chooser which has three lanes---those lanes should contain infinitely looping drums, bass and guitar samples. Make it so that two play at once---the drums always play, and either bass or guitar will be selected with equal probability.
+
+* Make it so the guitar doesn’t play.
+* Next, make it so all three play simultaneously.
+
+
 
 
 ## Scenario 3 - understanding the time chooser
 
------
+**Video** introducing Time Choosers, multiple-lane Time Choosers, and Time Chooser nose cone restrictions.
 
-Video introducing time choosers, multiple lanes, nose cone restrictions
 
------
-
-Here is a time chooser with two lanes.
+Here is a Time Chooser with two lanes.
 
 IMAGE
 
@@ -49,22 +50,21 @@ Keeping the soundable chooser you made for scenario 2, create a single-lane time
 
 Make a four bar rest.
 
-* Now you have made the rest, find two ways to quickly skip it.What do you think the nose cone value could be? What would happen if you gave the nose cone that value?
+* Now you have made the rest, find two ways to quickly skip it. What do you think the nose cone value could be? What would happen if you gave the nose cone that value?
 * What impact would there be if you changed the weight of the lane?
 
-----
 
-Video introducing full choosers, duration control via the time chooser, hard and soft stop
+**Video** introducing Full Choosers, duration control via the Time Chooser, and hard and soft stops.
 
-----
 
-Next, take the time chooser and snap it onto the soundable chooser created in scenario 2. What is the impact of this?
+Next, take the Time Chooser and snap it onto the Soundable Chooser created in scenario 2. What is the impact of this?
 
 IMAGE of the newly created Chooser
 
 
+
 ## Scenario 5 - understanding a full chooser
-Look at this chooser and say what will happen when the chooser is played. The drums and bass samples are four bars long. The marimba sample is two bars long.
+Look at this Chooser and say what will happen when the chooser is played. The drums and bass samples are four bars long. The marimba sample is two bars long.
 
 IMAGE
 
@@ -101,11 +101,9 @@ Using the templates, create a full chooser which:
 
 ## Scenario 8 - playground
 
-----
 
 Video - sequence
 
-----
 
 Using the templates and samples available, make a piece of music which uses a sequence of three choosers. The music will be recorded and shared online. 
 

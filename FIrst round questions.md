@@ -49,7 +49,7 @@ Keeping the soundable chooser you made for scenario 2, create a single-lane time
 
 Make a four bar rest.
 
-* Now you have made the rest, find two ways to quickly skip it.What do you think the nose cone value could be? What would happen if you gave the nose cone that value?
+* Now you have made the rest, find two ways to quickly skip it. What do you think the nose cone value could be? What would happen if you gave the nose cone that value?
 * What impact would there be if you changed the weight of the lane?
 
 
