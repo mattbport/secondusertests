@@ -11,7 +11,7 @@ Questionnaire for participants: <https://goo.gl/forms/YHTjQz8HcXG0AEO52>
 
 Here is a **Soundable Chooser** with two samples. 
 
-IMAGE
+![](images/scenario1.png)
 
 * If this Chooser is played by itself, how many samples will play? 
 * How do you know? 
@@ -24,6 +24,8 @@ IMAGE
 
 ## Scenario 2 - creating a soundable chooser
 Make a Soundable Chooser which has three lanes---those lanes should contain infinitely looping drums, bass and guitar samples. Make it so that two play at once---the drums always play, and either bass or guitar will be selected with equal probability.
+
+![](images/scenario2.png)
 
 * Make it so the guitar doesn’t play.
 * Next, make it so all three play simultaneously.
@@ -38,7 +40,7 @@ Make a Soundable Chooser which has three lanes---those lanes should contain infi
 
 Here is a Time Chooser with two lanes.
 
-IMAGE
+![](images/scenario3.png)
 
 * Describe what will happen when this chooser is run by itself.
 * The nosecone is currently set to 1. What else could it be set to? What would happen if it is changed?
@@ -59,14 +61,13 @@ Make a four bar rest.
 
 Next, take the Time Chooser and snap it onto the Soundable Chooser created in scenario 2. What is the impact of this?
 
-IMAGE of the newly created Chooser
-
+![](images/scenario4.png)
 
 
 ## Scenario 5 - understanding a full chooser
-Look at this Chooser and say what will happen when the chooser is played. The drums and bass samples are four bars long. The marimba sample is two bars long.
+Look at this Chooser and say what will happen when the Chooser is played. The `drums` and `bass` samples are four bars long. The `marimba` sample is two bars long.
 
-IMAGE
+![](images/scenario5.png)
 
 * How many samples will play? Will they loop or play once? What effect would changing the loop setting on the drums have?
 * How long will the chooser play for? What happens when the duration elapses?
@@ -78,7 +79,7 @@ IMAGE
 ## Scenario 6 - understanding a full chooser with multiple lane times
 Here is a chooser containing a time chooser with multiple lanes.
 
-IMAGE
+![](images/scenario6.png)
 
 * What do you expect to happen in the soundable chooser?
 * What will happen in the time chooser? Which lane is more likely to be selected? What are the consequences of the selection of the uppermost time chooser lane? What will be different if the lower time chooser lane is selected?
