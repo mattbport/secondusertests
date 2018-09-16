@@ -124,7 +124,7 @@ The piece should be musically satisfying even if it is run only once. If it is r
 	[ ] Questions (why does the loop do that?)
 	[ ] Problems (I don’t understand what these lanes are for)
 	 [ ] Suggestions (maybe the cone should be a different shape)
-	[ ] Other observations (I like the fins)
+	[] Other observations (I like the fins)
 
 
 Run through the tests. Are there any other ways to do that? Can you think of any other ways that could be done?
