@@ -118,13 +118,13 @@ Using the templates and samples available, make a piece of music which uses a se
 The piece should be musically satisfying even if it is run only once. If it is run more than once it should be different in some way.
 
 
-* Introduction; what we are doing
-* Questionnaire
-* Information we are going to gather and agree as co-participants:
-	* Questions (why does the loop do that?)
-	* Problems (I don’t understand what these lanes are for)
-	* Suggestions (maybe the cone should be a different shape)
-	* Other observations (I like the fins)
+[ ] Introduction; what we are doing
+[ ] Questionnaire
+[ ] Information we are going to gather and agree as co-participants:
+	[ ] Questions (why does the loop do that?)
+	[ ] Problems (I don’t understand what these lanes are for)
+	 [ ] Suggestions (maybe the cone should be a different shape)
+	[ ] Other observations (I like the fins)
 
 
 Run through the tests. Are there any other ways to do that? Can you think of any other ways that could be done?
