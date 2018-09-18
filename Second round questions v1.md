@@ -46,6 +46,7 @@ Here is a Full Chooser, comprising the Soundable Chooser from Scenario 1 and a T
 * The Time Chooser's nose cone is currently set to 1. What else could it be set to? What would happen if it is changed?
 
 
+
 ## Scenario 4 - Time Choosers as rests
 
 If a Time Chooser is used without a Soundable Chooser it will  create a rest of the selected duration.
