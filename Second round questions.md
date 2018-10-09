@@ -1,32 +1,60 @@
 # Basic sequence
 
+```
+       ┌────────────────────┐                  
+       │       Lanes        │                  
+       │                    │                  
+       └────────────────────┘                  
+                  │                            
+                  ▼                            
+       ┌────────────────────┐                  
+       │      Repeats       │                  
+       │                    │                  
+       └────────────────────┘                  
+                  │                            
+                  ├─────────────────┐          
+           ┌──────┘                 │          
+           │                        ▼          
+           ▼             ┌────────────────────┐
+┌────────────────────┐   │     ∞ repeats      │
+│      Sequence      │   │                    │
+│                    │   └────────────────────┘
+└────────────────────┘                         
+           │                                   
+           ▼                                   
+┌────────────────────┐                         
+│ Soundable Chooser  │                         
+│                    │                         
+└────────────────────┘                         
+```
+
 ![](images/2nd-round-content.png)
 
 ## Simple structure
-Lanes
-Repeats
-Sequence
+* Lanes
+* Repeats
+* Sequence
 
 ## Soundable Chooser basics
-Soundable Chooser
-Nose cone
-Weight
+* Soundable Chooser
+* Nose cone
+* Weight
 
 ## Infinity weight
-∞ weight
-Priority seating
+* ∞ weight
+* Priority seating
 
 ## Full Chooser basics
-Full Chooser, introducing the...
-Time Chooser
-Nose cone limitations for the Time Chooser
-Hard and soft stops
+* Full Chooser, introducing the...
+* Time Chooser
+* Nose cone limitations for the Time Chooser
+* Hard and soft stops
 
 ## Advanced features
-∞ nose cone
-∞ duration
-∞ repeats
-Soundable content in a Time Chooser lane
+* ∞ nose cone
+* ∞ duration
+* ∞ repeats
+* Soundable content in a Time Chooser lane
 
 
 # Second round user test questions
