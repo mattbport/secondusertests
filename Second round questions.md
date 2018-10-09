@@ -1,3 +1,34 @@
+# Basic sequence
+
+![](images/2nd-round-content.png)
+
+## Simple structure
+Lanes
+Repeats
+Sequence
+
+## Soundable Chooser basics
+Soundable Chooser
+Nose cone
+Weight
+
+## Infinity weight
+∞ weight
+Priority seating
+
+## Full Chooser basics
+Full Chooser, introducing the...
+Time Chooser
+Nose cone limitations for the Time Chooser
+Hard and soft stops
+
+## Advanced features
+∞ nose cone
+∞ duration
+∞ repeats
+Soundable content in a Time Chooser lane
+
+
 # Second round user test questions
 
 Questionnaire for participants: <https://goo.gl/forms/YHTjQz8HcXG0AEO52> 
