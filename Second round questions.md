@@ -344,3 +344,22 @@ Sketch out the previous example on the whiteboard, and make the following change
 Using the whiteboard and the available samples, make a piece of music which uses a sequence of three Choosers. The music will be recorded and shared online.
 
 The piece should be musically satisfying even if it is run only once. If it is run more than once it should be different in some way.
+
+
+----
+
+### Notes
+* Introduction; what we are doing
+* Questionnaire
+* Information we are going to gather and agree as co-participants:
+	* Questions (why does the loop do that?)
+	* Problems (I don’t understand what these lanes are for)
+	* Suggestions (maybe the cone should be a different shape)
+	* Other observations (I like the fins)
+
+
+Run through the tests. Are there any other ways to do that? Can you think of any other ways that could be done?
+
+* Can you see anything this would be useful for?
+* Can you see any ways in which this is similar to other tools you have used?
+* Is there anything that is made easier by this system? Anything which was not possible made possible/hard and made easier?
