@@ -324,6 +324,43 @@ Create a Full Chooser with these characteristics:
 \────┴──────────────────┘   └───┘    
 ```
 
+```
+/────┬──────────────────┬───┬───┬───┐
+│    │    drums.wav     │ ∞ │x∞ │ h │
+│    ├──────────────────┼───┼───┼───┤
+│    │     bass.wav     │ 2 │x2 │ h │
+│ ∞  ├──────────────────┼───┼───┼───┤
+│    │    guitar.wav    │ 1 │x1 │ h │
+│    ├──────────────────┼───┼───┼───┤
+│    │     vox.wav      │ ∞ │x∞ │ s │
+├────┼──────────────────┼───┼───┴───┘
+│    │      4 bars      │ 2 │        
+│    ├──────────────────┼───┤        
+│ 1  │      6 bars      │ 1 │        
+│    ├──────────────────┼───┤        
+│    │      8 bars      │ 2 │        
+\────┴──────────────────┴───┘        
+```
+
+
+```
+/────┬──────────────────┬───┬───┬───┐
+│    │    drums.wav     │x∞ │ h │ ∞ │
+│    ├──────────────────┼───┼───┼───┤
+│    │     bass.wav     │x2 │ h │ 2 │
+│ ∞  ├──────────────────┼───┼───┼───┤
+│    │    guitar.wav    │x1 │ h │ 1 │
+│    ├──────────────────┼───┼───┼───┤
+│    │     vox.wav      │x∞ │ s │ ∞ │
+├────┼──────────────────┴───┴───┼───┤
+│    │          4 bars          │ 2 │
+│    ├──────────────────────────┼───┤
+│ 1  │          6 bars          │ 1 │
+│    ├──────────────────────────┼───┤
+│    │          8 bars          │ 2 │
+\────┴──────────────────────────┴───┘
+```
+
 * Explain what will happen in the Time Chooser
 * What effect will this duration have on the Soundable Chooser lanes?
 * In the Soundable Chooser, which lanes will be selected, and which may be selected? What is the likelihood of selection?
