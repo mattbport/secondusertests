@@ -1,184 +1,3 @@
-### Content and logical flow
-
-```
-             ┌────────────────────┐                                                  
-             │       Lanes        │                                                  
-             │                    │                                                  
-             └────────────────────┘                                                  
-                        │                                                            
-                        ▼                                                            
-             ┌────────────────────┐                                                  
-             │      Repeats       │                                                  
-             │                    │                                                  
-             └────────────────────┘                                                  
-                        │                                                            
-                        ▼───────────────────────────┐                                
-             ┌────────────────────┐                 ▼                                
-             │      Sequence      │      ┌────────────────────┐                      
-             │                    │      │     ∞ repeats      │                      
-             └────────────────────┘      │                    │                      
-                        │                └────────────────────┘                      
-                        ▼                                                            
-             ┌────────────────────┐                                                  
-             │ Soundable Chooser  │                                                  
-             │                    │                                                  
-             └────────────────────┘                                                  
-                        │                                                            
-                        ▼                                                            
-             ┌────────────────────┐                                                  
-             │  Basic nose cone   │                                                  
-             │   functionality    │                                                  
-             └────────────────────┘                                                  
-                        │                                                            
-                        ▼───────────────────────────┐                                
-             ┌────────────────────┐                 ▼                                
-             │    Basic weight    │      ┌────────────────────┐                      
-             │                    │      │    ∞ nose cone     │                      
-             └────────────────────┘      │                    │                      
-                        │                └────────────────────┘                      
-                        ▼───────────────────────────┐                                
-             ┌────────────────────┐                 │                                
-             │ Basic Time Chooser │                 ▼                                
-             │                    │      ┌────────────────────┐                      
-             └────────────────────┘      │   ∞ lane weight    │                      
-                        │                │                    │                      
-                        │                └────────────────────┘                      
-           ┌────────────┤                           │                                
-           │            │                           ▼                                
-           ▼            │                ┌────────────────────┐                      
-┌────────────────────┐  │                │  Priority seating  │                      
-│  Time Chooser as   │  │                │      metaphor      │                      
-│  duration control  │  │                └────────────────────┘                      
-└────────────────────┘  └─────────────────────────────────────────────────┐          
-           │                                                              │          
-           │                                                              │          
-           ▼───────────────────────────────────┐                          │          
-┌────────────────────┐                         │                          │          
-│ Hard and soft stop │                         │                          │          
-│                    │                         ▼                          │          
-└────────────────────┘              ┌────────────────────┐                │          
-           │                        │     ∞ duration     │                │          
-           ▼                        │                    │                ▼          
-┌────────────────────┐              └────────────────────┘     ┌────────────────────┐
-│Soundable time lane │                                         │  Nondeterministic  │
-│    with on/off     │                                         │    Time Chooser    │
-└────────────────────┘                                         └────────────────────┘
-```
-
-
-### Proposed order
-```
-           ┌────────────────────┐                              
-           │       Lanes        │                              
-           │                    │                              
-           └────────────────────┘                              
-                      │                                        
-                      ▼                                        
-           ┌────────────────────┐                              
-           │      Repeats       │                              
-           │                    │                              
-           └────────────────────┘                              
-                      │                                        
-                      ├──────────────┐                         
-           ┌──────────┘              ▼                         
-           │              ┌────────────────────┐               
-           ▼              │      Sequence      │               
-┌────────────────────┐    │                    │               
-│     ∞ repeats      │    └────────────────────┘               
-│                    │               │                         
-└────────────────────┘               ▼                         
-                          ┌────────────────────┐               
-                          │ Soundable Chooser  │               
-                          │                    │               
-                          └────────────────────┘               
-                                     │                         
-                                     ▼                         
-                          ┌────────────────────┐               
-                          │  Basic nose cone   │               
-                          │   functionality    │               
-                          └────────────────────┘               
-                                     │                         
-                                     ▼                         
-                          ┌──────────┴─────────┐               
-                          │    Basic weight    │               
-                          │                    │               
-                          └──────────┬─────────┘               
-                                     │                         
-                                     ├──────────────┐          
-                                     │              ▼          
-                                     │   ┌────────────────────┐
-                                     │   │   ∞ lane weight    │
-                                     │   │                    │
-                            ┌────────┤   └────────────────────┘
-                            │        │              │          
-                            │        │              ▼          
-                            │        │   ┌────────────────────┐
-                            │        │   │  Priority seating  │
-                            │        │   │      metaphor      │
-                            ▼        │   └────────────────────┘
-                 ┌───────────────────┼┐                        
-                 │Basic Time Chooser,││                        
-                 │    Full Chooser   ││                        
-                 └───────────────────┼┘                        
-              ┌─────────────┐        │                         
-              │             ▼        │                         
-              │  ┌───────────────────┼┐                        
-              │  │  Time Chooser as  ││                        
-              │  │  duration control ││                        
-              │  └───────────────────┼┘                        
-              │             ┌────────┼──────────────┐          
-              │             ▼        │              ▼          
-              │  ┌───────────────────┼┐  ┌────────────────────┐
-              │  │ Hard and soft stop││  │     ∞ duration     │
-              │  │                   ││  │                    │
-              │  └───────────────────┼┘  └────────────────────┘
-              │             ─────────┼───────────┐             
-              ▼                      │           │             
-   ┌────────────────────┐            │           │             
-   │  Nondeterministic  │            │           │             
-   │    Time Chooser    │            │           │             
-   └────────────────────┘            ▼           │             
-                          ┌────────────────────┐ │             
-                          │    ∞ nose cone     │ │             
-                          │                    │ │             
-                          └────────────────────┘ │             
-                                                 ▼             
-                                      ┌────────────────────┐   
-                                      │Soundable time lane │   
-                                      │    with on/off     │   
-                                      └────────────────────┘   
-```
-
-![](images/2nd-round-content.png)
-
-## Simple structure
-* Lanes
-* Repeats
-* Sequence
-
-## Soundable Chooser basics
-* Soundable Chooser
-* Nose cone
-* Weight
-
-## Infinity weight
-* ∞ weight
-* Priority seating
-
-## Full Chooser basics
-* Full Chooser, introducing the...
-* Time Chooser
-* Nose cone limitations for the Time Chooser
-* Hard and soft stops
-
-## Advanced features
-* Nondeterministic Time Chooser
-* ∞ nose cone
-* ∞ duration
-* ∞ repeats
-* Soundable content in a Time Chooser lane
-
-
 # Second round user test questions
 
 Questionnaire for participants: <https://goo.gl/forms/YHTjQz8HcXG0AEO52> 
@@ -188,22 +7,18 @@ Questionnaire for participants: <https://goo.gl/forms/YHTjQz8HcXG0AEO52>
 
 ### Understanding
 
-*Video introducing samples, lanes, repeats, and sequence*
+*Video introducing samples, lanes, and sequence*
 
 ![](images/s1.png)
 
-* How many times will the bass.wav sample play? How could you make it play four times?
+* What will happen when this runs?
 * How could you change the order of the sequence?
-* How could you change the amen.wav sample from 2 to 4 repetitions?
 
 
 ### Implementing
 
-Update the example to do the following:
+Using the whiteboard, update the sequence to play the Amen break, then the bass hook, then the Amen break again before the end of the sequence.
 
-* Amen break, repeated twice;
-* Bass sample, repeated twice;
-* Add a guitar sample to the sequence, triggering after the bass sample. Set the guitar sample to repeat four times.
 
 
 ## S2: Soundable Chooser basics
@@ -225,7 +40,7 @@ We want to introduce some nonlinearity - in this case, we want the system to cho
 
 Using the whiteboard, draw a Soundable Chooser for the following scenario:
 
-A producer wants a Chooser which will select and play two out of three samples; `drums.wav`, `bass.wav`, and `guitar.wav`. They want all the samples to play four times before stopping, and they want the drums to be twice as likely to be selected as the other samples.
+You want a Chooser which will select and play two out of three samples; `drums.wav`, `bass.wav`, and `guitar.wav`. You want all the samples to play four times before stopping, and you want the drums to be twice as likely to be selected as the other samples.
 
 
 
@@ -234,7 +49,7 @@ A producer wants a Chooser which will select and play two out of three samples; 
 
 ### Understanding
 
-Sometimes you will want to make sure that one or more lanes are selected. In this instance, the producer wants to make sure that the music always has a drum track, with either a bass or guitar part playing at the same time.
+Sometimes you will want to make sure that one or more lanes are selected. In this instance, the artist wants to make sure that the music always has a drum track, with either a bass or guitar part playing at the same time.
 
 ![](images/s3.png)
 
@@ -249,7 +64,7 @@ Sometimes you will want to make sure that one or more lanes are selected. In thi
 
 Using the whiteboard, draw a Soundable Chooser for the following scenario:
 
-The producer wants a Chooser which will always play the `drums.wav` and `bass.wav` samples. The Chooser needs to also play either `guitar.wav` or `marimba.wav`; `marimba.wav` needs to be twice as likely to be picked as `guitar.wav`.
+You want a Chooser which will always play the `drums.wav` and `bass.wav` samples. The Chooser needs to also play either `guitar.wav` or `marimba.wav`; `marimba.wav` needs to be twice as likely to be picked as `guitar.wav`.
 
 
 ## S4: Full Chooser basics
@@ -257,7 +72,7 @@ The producer wants a Chooser which will always play the `drums.wav` and `bass.wa
 
 *Video introducing a Time Chooser to a Soundable Chooser, making a Full Chooser; the nose cone limitations for a Time Chooser; infinity repeats; and hard and soft stops (with visuals).*
 
-The producer needs to limit the overall duration of the Chooser, but they want to let the vocal sample finish playing if it is longer than 4 bars. The vocal is the most important element in this musical section and so it has to play; it should be accompanied by either drums or bass. Whichever supporting instrument is chosen, it should stop as soon as the duration of 4 bars is reached.
+In the example shown here, the artist needs to limit the overall duration of the Chooser but they also want to let the vocal sample finish playing if it is longer than 4 bars. The vocal is the most important element in this musical section and so it has to play; it should be accompanied by either drums or bass. Whichever supporting instrument is chosen, it will stop as soon as the duration of 4 bars has elapsed.
 
 ![](images/s4.png)
 
@@ -268,7 +83,7 @@ The producer needs to limit the overall duration of the Chooser, but they want t
 
 ### Implementation
 
-Using the example above as a starting point, the producer needs to create the next musical section. The Chooser needs to do the following;
+Using the example above as a starting point, you need to create the next musical section. The Chooser for the new section needs to do the following;
 
 * Select and play four out of six samples; the samples are `drums.wav`, `bass.wav`, `guitar.wav`, `marimba.wav`, `bvs.wav`, and `vox.wav`
 * The `vox.wav` and `marimba.wav` samples are essential to the track, so they always have to be selected
@@ -281,31 +96,40 @@ Using the example above as a starting point, the producer needs to create the ne
 ### Understanding
 *Video introducing ∞ for the Soundable nose cone, and ∞ as a duration in a Time Chooser; multiple lanes in a Time Chooser, including weighted choice and nose cone limitations; soundable content in a Time Chooser, including mute/non-mute.*
 
-The producer wants to hear all the lanes of the Soundable Chooser, and so uses ∞ in the nose cone. All lanes are looping, and the Chooser will have a duration of 4, 6, or 8 bars. A 4 bar duration is twice as likely as the other two options. Regardless of the duration, the vocal’s soft stop means that it will play in its entirety before stopping. The other samples will stop immediately as soon as the duration has elapsed.
+In this example, the artist wants to hear all the lanes of the Soundable Chooser, and so uses ∞ in the nose cone. All lanes are looping, and the Chooser will have a duration of 4 or 6 bars, or it will use the duration of the `marimba.wav` sample. A 4 bar duration is twice as likely as the other two options. Regardless of the duration, the vocal’s soft stop means that it will play in its entirety before stopping. The other samples will stop immediately as soon as the duration has elapsed.
 
 ![](images/s5.png)
 
 * Explain what will happen in the Time Chooser
-* What effect will this duration have on the Soundable Chooser lanes?
-* In the Soundable Chooser, which lanes will be selected, and which may be selected? What is the likelihood of selection?
-* In the Soundable Chooser, what effect will the repeat settings have?
-* What effect will the Soundable nose cone setting have?
+* What effect will the Time Chooser's selected duration have on the Soundable Chooser lanes?
+* How could we make the `marimba.wav` sample audible if it is selected?
+* In the Soundable Chooser, which lanes will be selected?
+* What effect will the Soundable nose cone setting have? How could you quickly change the Chooser to play two of the four samples?
+
 
 ### Implementation
 
-Sketch out the previous example on the whiteboard, and make the following changes:
+Sketch out the previous example on the whiteboard, and make the following musical changes:
 
-* Make the Full Chooser play infinitely
-* Make it so 2 lanes are chosen, and make all lanes equally likely to be selected
-* Next, make it so the Full Chooser has a duration of either 4 or 8 bars, with hard stops on all lanes
-* Next, create a sequence with the Full Chooser playing 4 times in a row
-]
+* Make it so 2 lanes are chosen; the vocal and one other instrument
+* Make it so the Full Chooser has a duration of either 4 or 8 bars, with hard stops on all lanes
+* Next, create a second Chooser and sequence it so it plays before this Chooser. The new Chooser should have the following characteristics:
+	* Drums and bass should always play, and should loop until hard-stopped;
+	* One of two vocal takes should play, looping until soft-stopped. The choice between them should be equal;
+	* The Chooser should have a duration of 4 or 8 bars, with 4 bars three times more likely to be chosen than 8 bars.
+
+
 ## S6: Playground
 
 Using the whiteboard and the available samples, make a piece of music which uses a sequence of three Choosers. The music will be recorded and shared online.
 
 The piece should be musically satisfying even if it is run only once. If it is run more than once it should be different in some way.
 
+
+# Not currently included in the test - advanced features
+* Repeats in lanes [x2], increasing the atomic length of the contents
+* A specific number of loops in the loop icon - only on/off currently introduced
+* Nesting
 
 ----
 
