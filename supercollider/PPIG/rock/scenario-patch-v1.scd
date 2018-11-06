@@ -8,14 +8,14 @@
 (
 ~mySamples= {
 (
-~drums = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "../audio/drums8.wav");
-~bass = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "../audio/bass4.wav");
-~bass2 = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "../audio/bass8.wav");
-~guitar = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "../audio/gtr8.wav");
-~marimba = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "../audio/marimba4.wav");
-~bass3 = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "../audio/synthbass4.wav");
-~bv = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "../audio/bv8.wav");
-~vox = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "../audio/vox8.wav");
+~drums = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "audio/drums8.wav");
+~bass = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "audio/bass4.wav");
+~bass2 = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "audio/bass8.wav");
+~guitar = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "audio/gtr8.wav");
+~marimba = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "audio/marimba4.wav");
+~bass3 = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "audio/synthbass4.wav");
+~bv = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "audio/bv8.wav");
+~vox = Buffer.read(s, thisProcess.nowExecutingPath.dirname +/+ "audio/vox8.wav");
 
 SynthDef(\drums, { arg loop=0, volume=0.4;
 	Out.ar(0,
