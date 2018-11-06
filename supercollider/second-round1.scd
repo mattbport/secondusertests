@@ -53,10 +53,10 @@ SynthDef(\vox, { arg loop=0, volume=0.3;
 	Out.ar(0,
 		PlayBuf.ar(2, ~vox.bufnum, BufRateScale.kr(~vox.bufnum), loop:loop, doneAction:2)*volume
 )}).add;
+)
 
 
-
-
+(
 ~chooser = {
 // setting the clock to the bpm of the samples
 	m = Main.elapsedTime;
@@ -64,18 +64,18 @@ SynthDef(\vox, { arg loop=0, volume=0.3;
 	c.schedAbs( 0,
 	k = {arg ...args;
 
-var lanes, weights, loops, nosecone, toplay, selectlane, chosen, chosenlocation, weightindex, durationinbars, beatsperbar, softstop, timenosecone, timeweights, timeselectlane, timelanes, timechosen, timechosenlocation, winningduration;
+var infinityweighted, infinityweightindex, lanes, weights, loops, nosecone, toplay, selectlane, chosen, chosenlocation, weightindex, durationinbars, beatsperbar, softstop, timenosecone, timeweights, timeselectlane, timelanes, timechosen, timechosenlocation, winningduration;
 
 			// playable chooser settings
 			lanes = [1,2,3,4,5,6];
-			weights = [2,2,2,2,3,1]; // 999 means ∞, priority boarding
+			weights = [1,1,1,2,3,1]; // 999 means ∞, priority boarding
 			loops = [1,1,1,1,1,1]; // boolean
 			softstop = [0,0,0,0,0,0]; // stops are per-lane
 			nosecone = 2;
 
 			// time chooser settings
 			timelanes = [1,2,3,4];
-			timenosecone = 1; // either zero or 1
+			timenosecone = 2; // either zero or 1
 			beatsperbar = [4,4,4,4];
 			durationinbars = [2,4,8,6];
 			timeweights = [1,1,1,1];
@@ -86,17 +86,22 @@ var lanes, weights, loops, nosecone, toplay, selectlane, chosen, chosenlocation,
 		// check to see if the nosecone allows for playback
 		if (nosecone > 0, {
 
-			// check to see if the A weight count is greater than the nosecone number
-			// if it is, increase the nosecone number to allow all to play
+			// check to see if the ∞ weight count is greater than the nosecone number
+			// if it is, run a straight lottery for the seats that are available
 			if (weights.occurrencesOf(999) > nosecone , {
-				nosecone = weights.occurrencesOf(999);
-				"Too many 'A' lanes. Nose cone now set to ".post;
-				nosecone.postln;
+					"Only ".post; nosecone.post; " seats and ".post;
+					weights.occurrencesOf(999).post;
+					" priority passengers.".postln;
+					"Seats to be allocated via an equal lottery.".postln;
 			},
 			{});
 
-	// check to see if the nose cone > number of lanes
+
+	// ******* How to check the number of legal lanes?? ************
+
+	// check to see if the nose cone > number of legal lanes
 	// if so, change nose cone value to the number of lanes
+	// the UI would prevent this
 
 	if (lanes.count({arg item, i; item.isPositive}) < nosecone , {
 	nosecone = lanes.count({arg item, i; item.isPositive});
@@ -110,12 +115,23 @@ var lanes, weights, loops, nosecone, toplay, selectlane, chosen, chosenlocation,
 for (1, nosecone, {
 
 		if (weights.includes(999), {
+						// put all 999 weighted lanes in an array
+						// run the lottery on the array until the nosecone is empty
+						// or the infinity array is empty
+						infinityweightindex = weights.indexOf(999);
+						infinityweighted = lanes.add(infinityweightindex);
+						selectlane = { infinityweighted.choose };
+						chosen = selectlane.value;
+						chosenlocation = infinityweighted.indexOf(chosen);
+						toplay = toplay.add(chosen);
+						lanes.remove(lanes[chosenlocation]);
+						weights.remove(infinityweighted[chosenlocation]);
 
-			weightindex = weights.indexOf(999); // index of the 999 weight
-			chosen = lanes[weightindex]; // use the index to get the lane number of the 999 weight lane
-			toplay = toplay.add(chosen); // add the chosen value to the 'toplay' array
-			lanes.remove(lanes[weightindex]); // prevent reselection by removing chosen value from initial list
-			weights.remove(weights[weightindex]); // remove corresponding weights of the chosen value
+						// weightindex = weights.indexOf(999); // index of the 999 weight
+						// chosen = lanes[weightindex]; // use the index to get the lane number of the 999 weight lane
+						// toplay = toplay.add(chosen); // add the chosen value to the 'toplay' array
+						// lanes.remove(lanes[weightindex]); // prevent reselection by removing chosen value from initial list
+						// weights.remove(weights[weightindex]); // remove corresponding weights of the chosen value
 		},
 		{
 			selectlane = { lanes.wchoose(weights.normalizeSum) }; // Select a lane
@@ -170,7 +186,9 @@ for (1, nosecone, {
 					c.schedAbs( winningduration*beatsperbar[timechosenlocation], {
 			q.set(\loop, 0); r.set(\loop, 0); t.set(\loop, 0); x.set(\loop, 0); y.set(\loop, 0); z.set(\loop, 0); "Loops turned off now".postln;
 		})});
-		})
+			})
 	}
 );
 })
+
+~chooser.play
