@@ -60,10 +60,10 @@ SynthDef(\vox, { arg loop=0, volume=0.3;
 
 // chooser values from the UI
 
-var toremove, infinityweightindex, infinityweighted, lanes, weights, loops, nosecone, toplay, selectlane, chosen, chosenlocation, weightindex, lane1, lane2, lane3;
+var infinityweightindex, infinityweighted, lanes, weights, loops, nosecone, toplay, selectlane, chosen, chosenlocation, weightindex, lane1, lane2, lane3;
 
 lanes = [1,2,3,4,5,6];
-weights = [999,0,1,1,999,1]; // 999 == infinity weight, priority boarding
+weights = [999,1,1,1,999,1]; // 999 == infinity weight, priority boarding
 loops = [1,1,1,1,1,1];
 nosecone = 2;
 
@@ -88,18 +88,11 @@ if (nosecone > 0, {
 	// Lanes and weights are removed from the arrays
 	// ****works once, but needs a while or for loop?*****
 
-
-	// syntax error somewhere here...
-
 	if (weights.includes(0), {
 		weightindex = weights.indexOf(0);
-		chosen = lanes[weightindex];
-		toremove = toremove.add(chosen);
 		lanes.remove(lanes[weightindex]);
 		weights.remove(weights[weightindex]);
-	},
-	{"All lanes are legal".postln;}
-	);
+	},{});
 
 
 	"Lanes: ".post; lanes.postln;
@@ -129,27 +122,25 @@ for (1, nosecone, {
 
 		// lottery needed here
 
-		if (weights.includes(999),
+		if (weights.includes(999), {
 			// put all 999 weighted lanes in an array
 			// run the lottery on the array until the nosecone is empty
 			// or the infinity array is empty
 
-			infinityweightindex = weights.indexOf(999);
-			infinityweighted = lanes.add(infinityweightindex);
-			selectlane = { infinityweighted.choose };
-			chosen = selectlane.value;
-			chosenlocation = infinityweighted.indexOf(chosen);
-			toplay = toplay.add(chosen);
-			lanes.remove(lanes[chosenlocation]);
-			weights.remove(infinityweighted[chosenlocation]);
-
-
-			// weightindex = weights.indexOf(999);
-			// "Always playing: ".post;
-			// chosen = lanes[weightindex].postln;
+			// infinityweightindex = weights.indexOf(999);
+			// infinityweighted = lanes.add(infinityweightindex);
+			// selectlane = { infinityweighted.choose };
+			// chosen = selectlane.value;
+			// chosenlocation = infinityweighted.indexOf(chosen);
 			// toplay = toplay.add(chosen);
-			// lanes.remove(lanes[weightindex]);
-			// weights.remove(weights[weightindex]);
+			// lanes.remove(lanes[chosenlocation]);
+			// weights.remove(infinityweighted[chosenlocation]);
+
+			weightindex = weights.indexOf(999);
+			chosen = lanes[weightindex].postln;
+			toplay = toplay.add(chosen);
+			lanes.remove(lanes[weightindex]);
+			weights.remove(weights[weightindex]);
 		},
 		{
 			"Selected: ".post;
@@ -159,8 +150,7 @@ for (1, nosecone, {
 			toplay = toplay.add(chosen);
 			lanes.remove(lanes[chosenlocation]);
 			weights.remove(weights[chosenlocation]);
-	}}
-);
+	})});
 
 	if (toplay.includes(1), { x = Synth(\drums, [\loop, loops[0]]) }, { "Drums not chosen".postln } );
 	if (toplay.includes(2), { y = Synth(\bass, [\loop, loops[1]])}, { "Bass not chosen".postln } );
