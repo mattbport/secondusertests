@@ -56,6 +56,7 @@ SynthDef(\vox, { arg loop=0, volume=0.3;
 )}).add;
 )
 
+
 (
 
 // chooser values from the UI
@@ -63,9 +64,9 @@ SynthDef(\vox, { arg loop=0, volume=0.3;
 var infinityweightindex, infinityweighted, lanes, weights, loops, nosecone, toplay, selectlane, chosen, chosenlocation, weightindex, lane1, lane2, lane3;
 
 lanes = [1,2,3,4,5,6];
-weights = [999,1,1,1,999,1]; // 999 == infinity weight, priority boarding
+weights = [998,0,0,0,0,998]; // 999 == infinity weight, priority boarding
 loops = [1,1,1,1,1,1];
-nosecone = 2;
+nosecone = 1;
 
 // start with no selection
 toplay = nil;
@@ -86,13 +87,13 @@ if (nosecone > 0, {
 
 	// Remove zero-weighted lanes from selection
 	// Lanes and weights are removed from the arrays
-	// ****works once, but needs a while or for loop?*****
 
+	while ( { weights.includes(0) }, {
 	if (weights.includes(0), {
 		weightindex = weights.indexOf(0);
 		lanes.remove(lanes[weightindex]);
 		weights.remove(weights[weightindex]);
-	},{});
+	})});
 
 
 	"Lanes: ".post; lanes.postln;
@@ -144,7 +145,7 @@ for (1, nosecone, {
 		},
 		{
 			"Selected: ".post;
-			selectlane = { lanes.wchoose(weights.normalizeSum) };
+			selectlane = { lanes.wchoose(weights.normalizeSum.postln) };
 			chosen = selectlane.value.postln;
 			chosenlocation = lanes.indexOf(chosen);
 			toplay = toplay.add(chosen);
