@@ -64,9 +64,9 @@ SynthDef(\vox, { arg loop=0, volume=0.3;
 var infinityweightindex, infinityweighted, lanes, weights, loops, nosecone, toplay, selectlane, chosen, chosenlocation, weightindex, lane1, lane2, lane3;
 
 lanes = [1,2,3,4,5,6];
-weights = [998,0,0,0,0,998]; // 999 == infinity weight, priority boarding
+weights = [1,1,1,1,0,2]; // 999 == infinity weight, priority boarding
 loops = [1,1,1,1,1,1];
-nosecone = 1;
+nosecone = 4;
 
 // start with no selection
 toplay = nil;
@@ -99,6 +99,7 @@ if (nosecone > 0, {
 	"Lanes: ".post; lanes.postln;
 	"Weights: ".post; weights.postln;
 
+
 	// Not sure if this is needed? Just in case...
 	chosen = nil;
 	weightindex = nil;
@@ -124,9 +125,9 @@ for (1, nosecone, {
 		// lottery needed here
 
 		if (weights.includes(999), {
-			// put all 999 weighted lanes in an array
-			// run the lottery on the array until the nosecone is empty
-			// or the infinity array is empty
+		// put all 999 weighted lanes in an array
+		// run the lottery on the array until the nosecone is empty
+		// or the infinity array is empty
 
 			// infinityweightindex = weights.indexOf(999);
 			// infinityweighted = lanes.add(infinityweightindex);
@@ -137,11 +138,12 @@ for (1, nosecone, {
 			// lanes.remove(lanes[chosenlocation]);
 			// weights.remove(infinityweighted[chosenlocation]);
 
-			weightindex = weights.indexOf(999);
-			chosen = lanes[weightindex].postln;
-			toplay = toplay.add(chosen);
-			lanes.remove(lanes[weightindex]);
-			weights.remove(weights[weightindex]);
+		weightindex = weights.indexOf(999);
+		selectlane = { lanes.wchoose(weights.normalizeSum) };
+		chosen = lanes[weightindex];
+		toplay = toplay.add(chosen);
+		lanes.remove(lanes[weightindex]);
+		weights.remove(weights[weightindex]);
 		},
 		{
 			"Selected: ".post;
