@@ -35,6 +35,8 @@ Let's say you have a lane which needs to always be selected; for example, you ma
 
 In order to understand infinity weight, it can be useful to think of an aeroplane with a limited number of seats. Lanes with infinite weight are the priority boarding passengers, and they are given the first seats on the plane. If there are still seats left after the priority boarders have taken their seats, there is a lottery held among the remaining passengers. If there are too few seats to accommodate the priority boarders, as shown here, then there is a straight lottery to fill the available seats.
 
+Here's an example. Imagine we have a plane with four seats to fill, and six passengers waiting to board. There are obviously more passengers than seats, so we need a system. Each passenger has a weight. Passenger 1 has a priority boarding pass - infinity weight - and so takes one of the seats. Passenger 4 also has infinity weight, and takes another seat. This leaves 2 seats, and 4 passengers. All four passengers had the opportunity to purchase lottery tickets for this eventuality. One passenger, passenger 5, does not have a ticket and therefore cannot travel. A lottery is held between the three valid passengers, and passenger 6 is the winner - she takes a seat on the plane. A second lottery is held, and passenger 2 is the winner - this is despite them having only 1 lottery ticket compared to passenger 3's 2 tickets. The final seat is thereby filled.
+
 
 
 # S4: Full Chooser basics
