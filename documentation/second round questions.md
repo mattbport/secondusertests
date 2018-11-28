@@ -17,16 +17,16 @@ Questionnaire for participants: <https://goo.gl/forms/YHTjQz8HcXG0AEO52>
 
 ### Implementing
 
-Using the whiteboard, update the sequence to play the Amen break, then the bass hook, then the Amen break again before the end of the sequence.
+Using the whiteboard, update the sequence to play the Amen break, then the bass hook, then the Amen break again, then stop.
 
 
 
 ## S2: Soundable Chooser basics
 
 ### Understanding
-*Video introducing Soundable Choosers, including the nose cone and the weight column*
+*Video introducing Soundable Choosers, including the nose cone, loop/non-loop, and the weight column*
 
-We want to introduce some nonlinearity - in this case, we want the system to choose between two different samples. We want to make a Chooser which will play either drums or bass. 
+We want to introduce some chance - in this case, we want the system to choose between two different samples. We want to make a Chooser which will play either drums or bass. 
 
 ![](images/s2.png)
 
@@ -40,12 +40,12 @@ We want to introduce some nonlinearity - in this case, we want the system to cho
 
 Using the whiteboard, draw a Soundable Chooser for the following scenario:
 
-You want a Chooser which will select and play two out of three samples; `drums.wav`, `bass.wav`, and `guitar.wav`. You want all the samples to play four times before stopping, and you want the drums to be twice as likely to be selected as the other samples.
+You want a Chooser which will select and play two out of three samples; `drums.wav`, `bass.wav`, and `guitar.wav`. You want the samples to loop, and you want the drums to be twice as likely to be selected as any other sample.
 
 
 
 ## S3: Infinity weight
-*Video introducing infinity weight and the priority seating and lottery analogy, with visual aids*
+*Video introducing infinity weight and the priority seating and lottery analogy*
 
 ### Understanding
 
@@ -70,9 +70,9 @@ You want a Chooser which will always play the `drums.wav` and `bass.wav` samples
 ## S4: Full Chooser basics
 ### Understanding
 
-*Video introducing a Time Chooser to a Soundable Chooser, making a Full Chooser; the nose cone limitations for a Time Chooser; infinity repeats; and hard and soft stops (with visuals).*
+*Video introducing a Time Chooser to a Soundable Chooser, making a Full Chooser; the nose cone limitations for a Time Chooser; infinity repeats; and hard and soft stops.*
 
-In the example shown here, the artist needs to limit the overall duration of the Chooser but they also want to let the vocal sample finish playing if it is longer than 4 bars. The vocal is the most important element in this musical section and so it has to play; it should be accompanied by either drums or bass. Whichever supporting instrument is chosen, it will stop as soon as the duration of 4 bars has elapsed.
+In the example shown here, the artist needs to limit the overall duration of the Chooser but they also want to let the vocal play to the end of the sample once it has started. The vocal is the most important element in this musical section and so it has to play; it should be accompanied by either drums or bass. Whichever supporting instrument is chosen, it will stop as soon as the duration of 4 bars has elapsed.
 
 ![](images/s4.png)
 
@@ -85,16 +85,16 @@ In the example shown here, the artist needs to limit the overall duration of the
 
 Using the example above as a starting point, you need to create the next musical section. The Chooser for the new section needs to do the following;
 
-* Select and play four out of six samples; the samples are `drums.wav`, `bass.wav`, `guitar.wav`, `marimba.wav`, `bvs.wav`, and `vox.wav`
-* The `vox.wav` and `marimba.wav` samples are essential to the track, so they always have to be selected
-* Of the other samples, the drums should be more likely to be selected
-* The Chooser should run for a minimum of 8 bars, with all samples looping
+* Select and play four out of six samples; the samples are `drums.wav`, `bass.wav`, `guitar.wav`, `marimba.wav`, `bvs.wav`, and `vox.wav`;
+* The `vox.wav` and `marimba.wav` samples are essential to the track, so they always have to be selected;
+* Of the other samples, the drums should be more likely to be selected;
+* The Chooser should run for a minimum of 8 bars, with all samples looping;
 * The vocal tracks (`vox.wav`, `bvs.wav`) should be allowed to finish playing. The other tracks should stop as soon as 8 bars has elapsed.
 
 
 ## S5: Advanced features
 ### Understanding
-*Video introducing ∞ for the Soundable nose cone, and ∞ as a duration in a Time Chooser; multiple lanes in a Time Chooser, including weighted choice and nose cone limitations; soundable content in a Time Chooser, including mute/non-mute.*
+*Video introducing ∞ for the Soundable nose cone, and ∞ as a duration in a Time Chooser; multiple lanes in a Time Chooser, including weighted choice and nose cone limitations; and soundable content in a Time Chooser, including mute/non-mute.*
 
 In this example, the artist wants to hear all the lanes of the Soundable Chooser, and so uses ∞ in the nose cone. All lanes are looping, and the Chooser will have a duration of 4 or 6 bars, or it will use the duration of the `marimba.wav` sample. A 4 bar duration is twice as likely as the other two options. Regardless of the duration, the vocal’s soft stop means that it will play in its entirety before stopping. The other samples will stop immediately as soon as the duration has elapsed.
 
@@ -116,7 +116,7 @@ Sketch out the previous example on the whiteboard, and make the following musica
 * Next, create a second Chooser and sequence it so it plays before this Chooser. The new Chooser should have the following characteristics:
 	* Drums and bass should always play, and should loop until hard-stopped;
 	* One of two vocal takes should play, looping until soft-stopped. The choice between them should be equal;
-	* The Chooser should have a duration of 4 or 8 bars, with 4 bars three times more likely to be chosen than 8 bars.
+	* The Chooser should have a duration of 4 or 8 bars, with a 4 bar duration three times more likely to be chosen than an 8 bar duration.
 
 
 ## S6: Playground
