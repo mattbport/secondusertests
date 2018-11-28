@@ -7,22 +7,26 @@ Lane {
 	var <>loop;
 	var <>loopTimes;   // usually inf
 	var <>stop;
-	var <>sample;                // Sample might have protocol -
+	var <>sample;                // Sample has protocol -
 	                                       //play, duration, name, repeatTimes, synth
 	                                       // NESTING pretty sure could allow SAMPLE to be
 	                                       // chooser and so have nesting
-                                           //  Lane could refer  directly to Xhooser or Time chooser  -
-	                                       // but probably best not due to memory leaks etc
-	                                       //  Problem is Lane needs to know TC duration
-	                                        // to caclulate Smart duration nlocally
-	                                       //  best to pass referecne as atgumeny
+                                           //  Lane could  directly hold Xhooser or Time chooser  -
+	                                       //  given that Lane needs to know TC duration for soft & hard stop
+	                                       // but that  would be icky and make cleaning memory hard
+	                                       // so we pass time chooser to sample as a parameter when needed
 
 *new { ^ super.new.init}
 
 *null { ^super.new}
-	                                       // might help when validly no lane can be chosen
-	                                        // vs inconvenient  empty list
-	                                       // see also dummy Sample class - similar idea
+	                                       // Null Lane helps  when validly no lane can be chosen
+	                                        // More convenient than  empty list
+	                                       // the only tricky parts of the protocol that a null lane needs to respond to
+	                                       // intelligenty are isNull, play and duration related  - but
+	                                       // mostly these are delegated to DummySample
+	                                       // But null lane should be initialised to constain instance  of dummySample
+	                                        // instead of goDummy Hack - tidy this up.
+	                                       // aha - but DummySample also handles case when Lane OK but sample is nil
 
 init{
 	weight = 1;
@@ -40,6 +44,7 @@ printOn { | aStream |
 		aStream << " ** " /*<< this.class.name */<< " w " << this.weight.asString ;
 		aStream << " "<<  this.stop.asString << " " ;
 		this.hasLoop.if( {   aStream <<  " loops "  });
+		this.sample.isNil.if{"Warning -  samples not loaded".postln;  ^ nil};
 		this.sample.isSymbol.if( {   aStream <<  " " << this.sample.asString; ^aStream });
 		this.sample.isNil.not.if( {   aStream <<  " " << this.sample.name.asString << " ";
 			                                     aStream << this.sample.basicDuration << " ";
@@ -52,12 +57,12 @@ printOn { | aStream |
 //===== INIT in Dummy Sample case ===================
 
 dummyInit{
-sample = DummySample.new }
+sample = DummySample.new }   // Unused - delete
 
 
-goDummy{ this.sample_(DummySample.new); ^ DummySample.new}
-
-//=============   TESTING  ====================
+goDummy{ this.sample_(DummySample.new); ^ DummySample.new} //Tidy up - nulls should be inited with a dummy
+	                                                                                                      // However also used when sample is nil
+//=============   TESTING Queries & Acessors   ====================
 
 
 isNull{
@@ -82,7 +87,7 @@ hasNoLoop {
 		^this.loop == false}
 
 
-hasNoStop {}    // do we need  this?
+hasNoStop {}    // do we need  this? NO!
 
 
 hasActiveTimeChooser{
@@ -93,6 +98,7 @@ hasActiveTimeChooser{
 		        "time chooser hasActiveTimeChooser". postln;
 		^ good
 	}
+
 
 
 //=============   SETTERS  ====================
@@ -115,6 +121,12 @@ namedSample{
 		arg aSymbol;
 		this.sample_(SampleBank.sampleDef(aSymbol));
 	}
+
+nest{ arg	aRecursive;
+		// check my class & wrap me appropriately and put me in sample slot probably
+		// (unless we get  nest slot instead)
+	}
+
 
 //============ ACTIONS ================
 
@@ -162,7 +174,7 @@ duration{
 
 localDuration{
 		(this.sample.class == DummySample).if { ^0 };
-		this.sample.isNil.if { this.goDummy };
+		this.sample.isNil.if { this.goDummy };  //Tidy up- nulls should just  be inited with a dummy
 		^ (this.sample.duration) *  (this.loopDurationMultiplier) }
 
 
@@ -181,7 +193,7 @@ smartDuration{
 // This is not needed to hard & soft stop correctly correctly - just for sequencing
 
 calculateSmartDurationWithNoActiveTimeLane{
-		this.sample.isNil.if { this.goDummy};
+		this.sample.isNil.if { this.goDummy}; //Tidy up- nulls should just be inited with a dummy
 		this.sample.smartDuration_(this.localDuration);
         ^this.localDuration }
 
