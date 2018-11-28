@@ -7,7 +7,7 @@ Questionnaire for participants: <https://goo.gl/forms/YHTjQz8HcXG0AEO52>
 
 ### Understanding
 
-*Video introducing samples, lanes, and sequence*
+[Video introducing samples, lanes, and sequence](https://drive.google.com/file/d/1SZQJDLv1tYGkDv19_SEQF-P0vrd638jD/view?usp=sharing)
 
 ![](images/s1.png)
 
@@ -24,7 +24,7 @@ Using the whiteboard, update the sequence to play the Amen break, then the bass 
 ## S2: Soundable Chooser basics
 
 ### Understanding
-*Video introducing Soundable Choosers, including the nose cone, loop/non-loop, and the weight column*
+[Video introducing Soundable Choosers, including the nose cone, loop/non-loop, and the weight column](https://drive.google.com/open?id=12UYE3DB68UvsebuUajD8UAoQBUda8MzU)
 
 We want to introduce some chance - in this case, we want the system to choose between two different samples. We want to make a Chooser which will play either drums or bass. 
 
@@ -45,7 +45,7 @@ You want a Chooser which will select and play two out of three samples; `drums.w
 
 
 ## S3: Infinity weight
-*Video introducing infinity weight and the priority seating and lottery analogy*
+[Video introducing infinity weight and the priority seating and lottery analogy](https://drive.google.com/open?id=1wui6OwXJDg9DIcjhU1JITiFJTpoDbRTK)
 
 ### Understanding
 
@@ -70,7 +70,7 @@ You want a Chooser which will always play the `drums.wav` and `bass.wav` samples
 ## S4: Full Chooser basics
 ### Understanding
 
-*Video introducing a Time Chooser to a Soundable Chooser, making a Full Chooser; the nose cone limitations for a Time Chooser; infinity repeats; and hard and soft stops.*
+[Video introducing a Time Chooser to a Soundable Chooser, making a Full Chooser; the nose cone limitations for a Time Chooser; infinity repeats; and hard and soft stops](https://drive.google.com/open?id=109dQuIbbNy-1vNr3xfnMTPu6WHZxvWrc)
 
 In the example shown here, the artist needs to limit the overall duration of the Chooser but they also want to let the vocal play to the end of the sample once it has started. The vocal is the most important element in this musical section and so it has to play; it should be accompanied by either drums or bass. Whichever supporting instrument is chosen, it will stop as soon as the duration of 4 bars has elapsed.
 
@@ -94,7 +94,7 @@ Using the example above as a starting point, you need to create the next musical
 
 ## S5: Advanced features
 ### Understanding
-*Video introducing ∞ for the Soundable nose cone, and ∞ as a duration in a Time Chooser; multiple lanes in a Time Chooser, including weighted choice and nose cone limitations; and soundable content in a Time Chooser, including mute/non-mute.*
+[Video introducing ∞ for the Soundable nose cone, and ∞ as a duration in a Time Chooser; multiple lanes in a Time Chooser, including weighted choice and nose cone limitations; and soundable content in a Time Chooser, including mute/non-mute](https://drive.google.com/open?id=1X-KGE0R1QindrABM9ksGyOKe6pJ-bV7b)
 
 In this example, the artist wants to hear all the lanes of the Soundable Chooser, and so uses ∞ in the nose cone. All lanes are looping, and the Chooser will have a duration of 4 or 6 bars, or it will use the duration of the `marimba.wav` sample. A 4 bar duration is twice as likely as the other two options. Regardless of the duration, the vocal’s soft stop means that it will play in its entirety before stopping. The other samples will stop immediately as soon as the duration has elapsed.
 
