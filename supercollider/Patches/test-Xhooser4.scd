@@ -3,6 +3,9 @@
 // Wait for it.....
       SampleBank.warmUp;   // add traces to show what sc classes involved
 
+SampleBank.at(\bass).play;
+SampleBank.at(\guitar).play;
+
 // DO ONCE FOR ALL CASES
 ~myChooser = Xhooser.new;
 
