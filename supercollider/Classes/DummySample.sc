@@ -1,3 +1,4 @@
+// SHOULD EITHER BE SUBCLASS OR HAVE COMMON SUPERCLASS WITH SAMPLE
 DummySample{
 		var <>buffer ;
 		var <>synth;
@@ -33,9 +34,9 @@ hardPlay{  "DummySample".postln;   }
 
 softPlay{  "DummySample".postln;  }
 
-softDuration {  "DummySample".postln;   ^ 0 }
+softDuration {  "DummySample".postln;   ^ 0 }  // misleading name - its a setter
 
-hardDuration {  "DummySample".postln;   ^0 }  // queried by lane & chooser
+hardDuration {  "DummySample".postln;   ^0 }  // misleading name - its a setter
 
 pause {   "DummySample".postln;   }
 
@@ -53,7 +54,7 @@ neededRepeatsFor{
 	}
 }
 
-// This protocol offers nsight for making choosers nestable
+// This protocol offers insight for making choosers nestable
 // Does not need  protocol
 // where  chooser calls  lane with news of presence or absence of time chooser
 // and lane queries sample about  its basicduration

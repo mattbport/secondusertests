@@ -1,3 +1,4 @@
+// SHOULD  HAVE COMMON SUPERCLASS WITH LANE
 TimeLane {
 	var <>weight;
     var <> playable;
@@ -46,6 +47,11 @@ hasSample { ^ (this.sample == nil).not}
 
 isFullyPlayable {
 		^ this.isPlayable.and({this.hasSample})}
+
+namedSample{
+		arg aSymbol;
+		this.sample_(SampleBank.sampleDef(aSymbol));
+	}
 
 
 play{

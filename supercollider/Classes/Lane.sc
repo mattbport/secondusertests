@@ -1,3 +1,4 @@
+// SHOULD  HAVE COMMON SUPERCLASS WITH TIMELANE
 //Lanes in time choosers CAN contain samples- but mainly they contain durations U
 //UPDATED
 
@@ -89,6 +90,10 @@ hasNoLoop {
 
 hasNoStop {}    // do we need  this? NO!
 
+	synth{^ this.sample.synth }
+
+	// for double nesting should return a list of synths all up the call chain. but just try it for now.   // may need to use stop or clear instead of free(kill) in loopable sequencers
+
 
 hasActiveTimeChooser{
 		arg aParentChooser ;
@@ -102,6 +107,12 @@ hasActiveTimeChooser{
 
 
 //=============   SETTERS  ====================
+
+nest{arg aChooser;
+		var wrapper;
+		wrapper = XhooserWrapper.new;
+		wrapper.wrap(aChooser);
+		this.sample_(wrapper) }
 
 hardStopOn	{
 		this.stop_ (\hard)}
@@ -122,10 +133,8 @@ namedSample{
 		this.sample_(SampleBank.sampleDef(aSymbol));
 	}
 
-nest{ arg	aRecursive;
-		// check my class & wrap me appropriately and put me in sample slot probably
-		// (unless we get  nest slot instead)
-	}
+
+
 
 
 //============ ACTIONS ================

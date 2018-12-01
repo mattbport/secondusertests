@@ -1,3 +1,4 @@
+// SHOULD  HAVE COMMON SUPERCLASS WITH TIMECHOOSER
 Xhooser {
 	var <>noseCone;
 	var <>lanes;
@@ -5,6 +6,7 @@ Xhooser {
 	var <> timeChooser;
 	var <> journal ;
 	   // but could record an event stream - instance of non det command pattern?
+	   // approx 1000 LOC total
 
 // =====  INITIALIZATION	 =======
 init{
@@ -34,7 +36,7 @@ addLane{
 	explore{ ^ this.chosenLanesAsArray.inspect}
 
 
-// ========TESTING  QUERYING========
+// ========TESTING  QUERYING & Accessors ========
 noseConeIsInfinite{
 		^this.noseCone == inf}
 
@@ -60,6 +62,17 @@ lanesNotChosenYet{
 		^this.chosenLanes.isEmpty
 	}
 
+allChosenSynths{
+		^ this.chosenLanes.collect{ arg eachLane, i;  eachLane.synth}
+	}
+
+integrityCheck{
+		this.lanes.do {arg eachLane, index; eachLane.sample.isNil.if { "SampleBank not loaded".postln}}
+	}
+
+
+
+
 // ======  DERIVED COLLECTIONS AND NUMBERS ============
 priorityBoarders {
 			^ this.lanes.select({ arg eachLane, index; eachLane.hasInfiniteWeight})   }
@@ -74,19 +87,19 @@ nonZeroWeightedLanes {
 	}
 
 noOfLanesStillToPick{
-			   // only works with finite noseCone -
-		       // and only relevant there - so only use it with finite ones
+			   // only works with finite noseCone - but
+		       // nonDeterministicLaneChoice  ensures never gets called if noseCone is infinite
 		this.noseConeIsZero.if { ^0};
 		^  (this.noseCone -  this.chosenLanes.size)
-			    // until we find out more about inf and nan
+
 	                       }
 chosenTimeLane {
 		this.hasActiveTimeChooser.if (
-			{	^ this.timeChooser.chosenLane},
+			{^ this.timeChooser.chosenLane},
 			{  "No active time chooser2".postln; ^nil})
 		    // what if none chosen yet?
-		     // chooseLanes in this class  should makes sure it has been
-		     // but program defensivley
+		     // chooseLanes lgorithn ensures never gets called
+		     // but good program defensively in case bugs
 	}
 
 
@@ -103,8 +116,7 @@ chosenTimeLane {
 
 chooseWinnersFromFiniteNonZeroWeightedLanes{
 		     // needs this.chosenLanes to have been initialised by
-		      // nonDeterministicLaneChoice
-		     //  so maybe would be better if chosenLanes were a set
+		      // nonDeterministicLaneChoice - should  chosenLanes have been a set
 		var finiteNonZeroWeightedPool = this.finiteWeightedNonZeroLanes;
 		 var pool = List.new;
 		 var poolWeights = List.new;
@@ -115,28 +127,28 @@ chooseWinnersFromFiniteNonZeroWeightedLanes{
 			                      poolWeights.add(eachLane.weight)}); // initialize pool weights
 
 		 noOfRemainingPicks = this.noOfLanesStillToPick;
-		                  // being overly cautious - probably not needed
+		                                                          // overly cautious - probably not needed
 	     noOfRemainingPicks.do({  | choice|
 	     normalizedWeights = poolWeights.asArray.normalizeSum; //need to normalize
 			                                      choice = pool.asArray.wchoose(normalizedWeights);
 			                                                    // wchoose only works for arrays
-			 (choice==nil).if(
-			{"Not enough non-zero weighted lanes to meet nosecone demand".postln;
+			                                     (choice==nil).if(
+			                       {"Not enough non-zero weighted playable lanes for nosecone".postln;
 					                                    // maybe adjust one or the other in response?
-			});
+			                                    });
 			                                      chosenLanes.add(choice);
 			                                      pool.remove(choice);
-
-			                                        poolWeights = List.new;
-// no need to remove chosen weight - just recreate weights for shrunken pool
-			                                        pool.do ({ arg eachLane; poolWeights.add(eachLane.weight)});
+			                                       poolWeights = List.new;
+			                                              // no need to remove chosen weight
+			                                              //- just recreate weights for shrunken pool
+			                                       pool.do ({ arg eachLane; poolWeights.add(eachLane.weight)});
 			                                         })
 			^ this.chosenLanes  }
 
 // ========    CHOOSING LANES  - MAIN  METHODS   =================
 nonDeterministicLaneChoice {
      	this.chosenLanes_(List.new);
-		// Must be initialised here when this is called - not when creating the Xhooser
+		// Must be initialised HERE when this is called - not when creating the Xhooser
 	   // 6 cases - zero noseCone
 	this.noseConeIsZero.if ({ ^chosenLanes; }) ;//and we are out
 
@@ -145,10 +157,11 @@ nonDeterministicLaneChoice {
 			       ^ this.chosenLanes_(this.nonZeroWeightedLanes) }) ;//and we are out
 
     // noseCone is not infinite but there are  too many priority boarders...
-	this.hasTooManyPriorityBoarders.if({ this.chooseWinnersFromTooManPriorityBoarders;  ^ chosenLanes  });  // and we are out
+	this.hasTooManyPriorityBoarders.if({ this.chooseWinnersFromTooManPriorityBoarders;  ^ chosenLanes  });
+		// and we are out
 
 	// Chooser does not have too many priority boarders
-	//- so if there are any should add them all
+	//- so if there are any at all should add them all
 	// but must go on next  to add any non zero weighted finite ones
 	 this.hasPriorityBoarders.if({ chosenLanes.addAll(this.priorityBoarders) ;  });
 
@@ -188,8 +201,10 @@ nonDeterministicLaneChoice {
 	}
 
 	addPlayableTimeLaneToChosenLanes {
+		 var newLane;  //  will this displace one lane from the count? nope
 		this.hasActiveTimeChooser.and({this.chosenTimeLaneIsFullyPlayable}).if
-		( { this.chosenLanes.add(this.timeChooser.chosenLane)}, {^ "No playableTimeLane available".postln})
+		(    newLane = Lane.new.weight_(inf).sample_(this.timeChooser.chosenLane.sample);
+			{ this.chosenLanes.add(newLane)}, {^ "No playableTimeLane available".postln})
 	}
 
 
@@ -197,6 +212,7 @@ nonDeterministicLaneChoice {
 
 
 playChosenLanes{  // doesn't choose fresh Lanes -  sticks with last choices
+		                        this.integrityCheck; // dont think has opportunity to do anything
 		          		       this.hasActiveTimeChooser.if (
 		                         	{      this.journal.add( \hasActiveTimeChooser -> this.timeChooser);
 				                            this.journal.add( \activeTimeLane -> this.chosenTimeLane);
@@ -206,7 +222,7 @@ playChosenLanes{  // doesn't choose fresh Lanes -  sticks with last choices
 	                                }
 
 
-play {                 //   multiple hits of plain play always produce new choices
+play {                 //  PRINCIPLE: multiple hits of plain play always produce new choices
 		                  // journals previous choices,
 			this.chooseLanes;                         // empties out previous choices
 		    this.journal.add( \chosenLanes -> this.chosenLanes.asArray);
@@ -221,6 +237,9 @@ pause{
 resume{
 		this.chosenLanes.do  { |eachLane | eachLane.resume} }
 
+stop { this.allChosenSynths.free}
+
+
 //========= DURATION =========
 
 calculateSmartDurationWithChosenTimeLane {
@@ -231,7 +250,7 @@ calculateSmartDurationWithNoActiveTimeLane{
 	             this.chosenLanes.do {|eachLane |
 	                     eachLane.calculateSmartDurationWithNoActiveTimeLane}}
 
-duration{ // sequencer calls this to find out when to sequence
+duration{                                   // sequencer calls this to find out when to sequence
 		this.lanesNotChosenYet.if {"No choices made yet - should not happen".postln; ^0};
 	^	this.maxLaneDuration
 	}
@@ -244,18 +263,14 @@ durationOfChosenTimeLane{                     //just  to lower coupling in lane
 
 maxLaneDuration{
 		var durations;
-		durations = chosenLanes.collect{ arg eachLane, i;     "smart duration of lane ".postln;
-			                                                                             eachLane.smartDuration.postln;
-			                                                                             eachLane.smartDuration};
-		"durations.maxItem{arg item, i; item}".postln;
-		durations.maxItem{arg item, i; item}.postln;
+		durations = chosenLanes.collect{ arg eachLane, i;     eachLane.smartDuration};
 		^durations.maxItem{arg item, i; item}
 	}
 
 
 }
 
-// PROTOCOL NEEDS CHECKING FOR UNNEEDED FLUFF & WARPING
+// PROTOCOL NEEDS CHECKING FOR UNNEEDED FLUFF & CRUFT
 
 
 

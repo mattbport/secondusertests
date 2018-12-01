@@ -1,3 +1,4 @@
+// SHOULD  HAVE COMMON SUPERCLASS WITH CHOOSER
 TimeChooser {
 	var <>noseCone;
 	var <>lanes;
@@ -68,6 +69,7 @@ finiteNonZeroWeightedLanes{
 
 
 chooseWinnerFromPriorityBoarders	 {
+		this.priorityBoarders.debug("chooseWinnerFromPriorityBoarders in time chooser");
 			 ^ this.priorityBoarders.choose;
 			                         }
 
@@ -89,16 +91,19 @@ chooseWinnerFromFiniteNonZeroWeightedLanes{
 nonDeterministicLaneChoice {
 	// 5 CASES
 	//  zero noseCone
+
 	this.noseConeIsZero.if {
-			"nosecone in time chooser is zero- write code for this case".postln
-			^Lane.empty; } ;//what to return? empty lane/ something else?
+			"nosecone in time chooser is zero- ignoring time chooser".postln;
+			^ this.chosenLane_(Lane.empty) } ;//value of chosenLane matters - not return value.
 
 	// If nosecone bigger than 1 (incl inf case) change nose cone to 1 and say doing it.
 	// NOT YET IMPLEMENTED
-		this.noseConeTooBig.if {"nosecone in time chooser too big- write code for this case".postln};
+		this.noseConeTooBig.if {"Nose cone in time chooser too big- reducing nosecone value to 1".postln;
+			^ this.chooseWinnerFromFiniteNonZeroWeightedLanes};
 
 	// If there are any priority boarders, one of those must win
-	     this.hasPriorityBoarders.if({ ^ this.chooseWinnerFromPriorityBoarders;  });
+	     this.hasPriorityBoarders.if({
+			^ this.chosenLane_(this.chooseWinnerFromPriorityBoarders;  )});
 
 	//  Nose cone must now  be  1  and there must be no priority boarders
 		  ^ this.chooseWinnerFromFiniteNonZeroWeightedLanes;

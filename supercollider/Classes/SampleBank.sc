@@ -4,13 +4,15 @@ SampleBank{
 
 //=========  ALL CLASS METHODS  =====================
 
+	*purge{ samples = nil; }
+
 	*tempo{
 		tempo.isNil.if {^ tempo = 122/60};  // NB Class (not instance)  holds global tempo
 		^ tempo                                           // and acts as sample bank
 	}
 
 	*populate{
-	    samples = Dictionary.new( n: 8); //  colon syntax is arg keyword
+	    samples = Dictionary.new( n: 16); //  colon syntax is arg keyword
 		                                                   //-based on how args declared
 		samples.add(\guitar -> Sample.new(\guitar, "gtr8"));
 		samples.add(\bass -> Sample.new(\bass, "bass4"));   // itry to get rid of redundant
