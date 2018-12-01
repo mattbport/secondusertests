@@ -24,6 +24,9 @@ TIME CHOOSER EXAMPLE
 
 ~ch1.play;
 
+~ch1.chosenLanes.inspect;
+~ch1.inspect;
+
 
 // S2 implementation question. All fine.
 (
@@ -45,13 +48,13 @@ TIME CHOOSER EXAMPLE
 ~ch1.addLane( Lane.new.weight_(inf).namedSample(\drums).loopOn);
 ~ch1.addLane( Lane.new.weight_(2).namedSample(\bass).loopOn);
 ~ch1.addLane( Lane.new.weight_(1).namedSample(\guitar).loopOn);
- )
+)
 
 ~ch1.play;
 
 
 // S3 implementation question
-// ISSUES
+// Fixed
 (
 ~ch1 = Xhooser.new;
 ~ch1.noseCone_(3);
@@ -59,7 +62,7 @@ TIME CHOOSER EXAMPLE
 ~ch1.addLane( Lane.new.weight_(inf).namedSample(\bass).loopOn);
 ~ch1.addLane( Lane.new.weight_(1).namedSample(\guitar).loopOn);
 ~ch1.addLane( Lane.new.weight_(2).namedSample(\marimba).loopOn);
- )
+)
 
 ~ch1.play;
 
@@ -86,7 +89,7 @@ TIME CHOOSER EXAMPLE
 // Issue - same as above - due to two infinitely weighted lanes?
 (
 ~ch1 = Xhooser.new;
-~ch1.noseCone_(4);
+~ch1.noseCone_(3);
 ~ch1.addLane( Lane.new.weight_(2).namedSample(\drums).loopOn);
 ~ch1.addLane( Lane.new.weight_(1).namedSample(\bass).loopOn);
 ~ch1.addLane( Lane.new.weight_(1).namedSample(\guitar).loopOn);
@@ -100,6 +103,8 @@ TIME CHOOSER EXAMPLE
 )
 
 ~ch1.play;
+~ch1.playChosenLanes; // same again
+// FAILURE IN SERVER - doesn't seem to be an issue??
 
 
 
@@ -137,7 +142,7 @@ TIME CHOOSER EXAMPLE
 ~tc2.noseCone_(1);
 ~tc2.addLane( TimeLane.new.weight_(2).beats_(4*4));
 ~tc2.addLane( TimeLane.new.weight_(1).beats_(4*8));
-~ch2.timeChooser_(~tc1);
+~ch2.timeChooser_(~tc2);
 )
 
 // Second Chooser
@@ -158,9 +163,9 @@ TIME CHOOSER EXAMPLE
 // )
 
 (
-~s5 = Sequence.new;
-~s5.add (~ch1);
+~s5 = LoopableSequence.new;
 ~s5.add (~ch2);
+~s5.add (~ch1);
 )
 
 ~s5.play;

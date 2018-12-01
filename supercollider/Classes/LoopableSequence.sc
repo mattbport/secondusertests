@@ -19,7 +19,7 @@ init{ choosers = List.new;
 		timeline = List.new;
 		clocks = List.new;
 		loop = true;
-		loopTimes = 3;
+		loopTimes = 1;
 		loopMax = 6;
 	}
 
@@ -128,7 +128,9 @@ nSequences { arg n;
 
 choose {   var sequenceDuration =0 ;
 		        choosers.do{ |eachChooser| eachChooser.chooseLanes};
-	             choosers.do {  |eachChooser| sequenceDuration =
+	             choosers.do {  |eachChooser|
+			eachChooser.duration.debug("duration of chooser");
+			sequenceDuration =
 			                              sequenceDuration + eachChooser.duration};
 		           this.duration_(sequenceDuration)
 

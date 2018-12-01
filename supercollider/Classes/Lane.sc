@@ -46,12 +46,12 @@ printOn { | aStream |
 		aStream << " "<<  this.stop.asString << " " ;
 		this.hasLoop.if( {   aStream <<  " loops "  });
 		this.sample.isNil.if{"Warning -  samples not loaded".postln;  ^ nil};
-		this.sample.isSymbol.if( {   aStream <<  " " << this.sample.asString; ^aStream });
-		this.sample.isNil.not.if( {   aStream <<  " " << this.sample.name.asString << " ";
-			                                     aStream << this.sample.basicDuration << " ";
-			                                     aStream <<  " smart " << this.smartDuration << " "
+		// this.sample.isSymbol.if( {   aStream <<  " " << this.sample.asString; ^aStream });
+		// this.sample.isNil.not.if( {   aStream <<  " " << this.sample.name.asString << " ";
+		// aStream << this.sample.basicDuration << " ";
+		// aStream <<  " smart " << this.smartDuration << " "
 
-		});
+// });
 		^aStream}
 
 
@@ -183,7 +183,9 @@ duration{
 
 localDuration{
 		(this.sample.class == DummySample).if { ^0 };
-		this.sample.isNil.if { this.goDummy };  //Tidy up- nulls should just  be inited with a dummy
+		this.sample.isNil.if { this.debug ("in localDuration"); this.goDummy };  //Tidy up- nulls should just  be inited with a dummy
+			this.debug ("in localDuration2";
+			this.sample.isString.if{this.sample.inspect});
 		^ (this.sample.duration) *  (this.loopDurationMultiplier) }
 
 
