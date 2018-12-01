@@ -90,18 +90,103 @@ S3 implementation:
 
 **ISSUE** - Does not work correctly. Post window shows `playable not found` and repeated runs of the `play` message throws new errors. Seems to be due to the use of two infinitely weighted lanes.
 
+NEW ISSUE 1st Dec - fails with the following message:
+
+```
+ERROR: Message 'duration' not understood.
+RECEIVER:
+Instance of String {    (0x10faf18c0, gc=01, fmt=07, flg=11, set=02)
+  indexed slots [18]
+      0 : p
+      1 : l
+      2 : a
+      3 : y
+      4 : a
+      5 : b
+      6 : l
+      7 : e
+      8 :  
+      9 : n
+     10 : o
+     11 : t
+     12 :  
+     13 : f
+     14 : o
+     15 : u
+     16 : n
+     17 : d
+```
+
 
 ### S4
 Understanding Q - all fine
 
+Implementing Q has problems:
+
 **ISSUE** - same as in S3. There is an issue when there are 2 or more infinitely weighted lanes
+
+NEW ISSUE 1st December - now does not run, with the following error:
+
+```
+ERROR: Message 'hardDuration' not understood.
+RECEIVER:
+Instance of String {    (0x10faf18c0, gc=01, fmt=07, flg=11, set=02)
+  indexed slots [18]
+      0 : p
+      1 : l
+      2 : a
+      3 : y
+      4 : a
+      5 : b
+      6 : l
+      7 : e
+      8 :  
+      9 : n
+     10 : o
+     11 : t
+     12 :  
+     13 : f
+     14 : o
+     15 : u
+     16 : n
+     17 : d
+}
+```
 
 
 
 ### S5
 Understanding Q - all fine, apart from the lack of soundable content in a time lane. How to add audio file to time lane?
 
-Implementation Q - cannot test due to the multiple infinite weight bug.
+**Update 1st Dec**: from Simon's new classes - marimba has been added, but when it is successfully picked we get the following error:
+
+```
+ERROR: Message 'duration' not understood.
+RECEIVER:
+Instance of String {    (0x10faf18c0, gc=01, fmt=07, flg=11, set=02)
+  indexed slots [18]
+      0 : p
+      1 : l
+      2 : a
+      3 : y
+      4 : a
+      5 : b
+      6 : l
+      7 : e
+      8 :  
+      9 : n
+     10 : o
+     11 : t
+     12 :  
+     13 : f
+     14 : o
+     15 : u
+     16 : n
+     17 : d
+}
+```
+
+**ISSUE** with the sequence - the duration of the chooser is not being reported correctly, leading to overlapping sequences.
 
 ```
 /────┬──────────────────┬───┬───┬───┐

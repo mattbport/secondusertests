@@ -116,7 +116,7 @@ TIME CHOOSER EXAMPLE
 ~tc1.noseCone_(1);
 ~tc1.addLane( TimeLane.new.weight_(2).beats_(4*4));
 ~tc1.addLane( TimeLane.new.weight_(1).beats_(4*6));
-// ~tc1.addLane( TimeLane.new.beats_(4*8)); // how to add a sample - marimba??
+~tc1.addLane(TimeLane.new.weight_(1).namedSample(\marimba).playable_(true));
 ~ch1.timeChooser_(~tc1);
 )
 
@@ -127,35 +127,35 @@ TIME CHOOSER EXAMPLE
 // S5 implementation
 // First Chooser, no changes needed, all fine
 (
-~ch1 = Xhooser.new;
-~ch1.noseCone_(2);
-~ch1.addLane( Lane.new.weight_(1).namedSample(\drums).loopOn);
-~ch1.addLane( Lane.new.weight_(1).namedSample(\bass).loopOn);
-~ch1.addLane( Lane.new.weight_(1).namedSample(\guitar).loopOn);
-~ch1.addLane( Lane.new.weight_(inf).namedSample(\vox).loopOn);
-~tc1 = TimeChooser.new;
-~tc1.noseCone_(1);
-~tc1.addLane( TimeLane.new.weight_(2).beats_(4*4));
-~tc1.addLane( TimeLane.new.weight_(1).beats_(4*8));
-~ch1.timeChooser_(~tc1);
+~ch2 = Xhooser.new;
+~ch2.noseCone_(2);
+~ch2.addLane( Lane.new.weight_(1).namedSample(\drums).loopOn);
+~ch2.addLane( Lane.new.weight_(1).namedSample(\bass).loopOn);
+~ch2.addLane( Lane.new.weight_(1).namedSample(\guitar).loopOn);
+~ch2.addLane( Lane.new.weight_(inf).namedSample(\vox).loopOn);
+~tc2 = TimeChooser.new;
+~tc2.noseCone_(1);
+~tc2.addLane( TimeLane.new.weight_(2).beats_(4*4));
+~tc2.addLane( TimeLane.new.weight_(1).beats_(4*8));
+~ch2.timeChooser_(~tc1);
 )
 
 // Second Chooser
 // ISSUE multiple infinite weights in the Soundable - error
-(
-~ch2 = Xhooser.new;
-~ch2.noseCone_(inf);
-~ch2.addLane( Lane.new.weight_(inf).namedSample(\drums).loopOn);
-~ch2.addLane( Lane.new.weight_(inf).namedSample(\bass).loopOn);
-~ch2.addLane( Lane.new.weight_(1).namedSample(\bvs).loopOn.softStopOn);
-~ch2.addLane( Lane.new.weight_(1).namedSample(\vox).loopOn.softStopOn);
-~tc2 = TimeChooser.new;
-~tc2.noseCone_(1);
-~tc2.addLane( TimeLane.new.weight_(3).beats_(4*4));
-~tc2.addLane( TimeLane.new.weight_(1).beats_(4*8));
+// (
+// ~ch2 = Xhooser.new;
+// ~ch2.noseCone_(inf);
+// ~ch2.addLane( Lane.new.weight_(inf).namedSample(\drums).loopOn);
+// ~ch2.addLane( Lane.new.weight_(inf).namedSample(\bass).loopOn);
+// ~ch2.addLane( Lane.new.weight_(1).namedSample(\bvs).loopOn.softStopOn);
+// ~ch2.addLane( Lane.new.weight_(1).namedSample(\vox).loopOn.softStopOn);
+// ~tc2 = TimeChooser.new;
+// ~tc2.noseCone_(1);
+// ~tc2.addLane( TimeLane.new.weight_(3).beats_(4*4));
+// ~tc2.addLane( TimeLane.new.weight_(1).beats_(4*8));
 // ~tc1.addLane( TimeLane.new.beats_(4*8)); // how to add a sample - marimba??
-~ch2.timeChooser_(~tc2);
-)
+// ~ch2.timeChooser_(~tc2);
+// )
 
 (
 ~s5 = Sequence.new;
