@@ -5,32 +5,36 @@ TIME CHOOSER EXAMPLE
       SampleBank.warmUp;   // add traces to show what sc classes involved
 
 //  CREATE A CHOOSER 1
+(
 ~ch1 = Xhooser.new;
 ~ch1.noseCone_(2);
-~ch1.addLane( Lane.new.weight_(1).namedSample(\guitar));
+~ch1.addLane( Lane.new.weight_(1).namedSample(\guitar).loopOn);
 ~ch1.addLane( Lane.new.weight_(3).namedSample(\bass).loopOn.softStopOn);
-~ch1.addLane( Lane.new.weight_(2).namedSample(\drums));
-~ch1.addLane( Lane.new.weight_(1).namedSample(\vox));
+~ch1.addLane( Lane.new.weight_(2).namedSample(\drums).loopOn);
+~ch1.addLane( Lane.new.weight_(1).namedSample(\vox).loopOn);
 ~tc1 = TimeChooser.new;
 ~tc1.noseCone_(1);
-~tc1.addLane( TimeLane.new.beats_(6));
-~tc1.addLane( TimeLane.new.beats_(10));
+~tc1.addLane( TimeLane.new.beats_(2));
+~tc1.addLane( TimeLane.new.beats_(4));
 ~ch1.timeChooser_(~tc1);
+)
 
+(
 //  CREATE A CHOOSER 2
 ~ch2 = Xhooser.new;
 ~ch2.noseCone_(2);
-~ch2.addLane( Lane.new.weight_(1).namedSample(\guitar));
+~ch2.addLane( Lane.new.weight_(1).namedSample(\guitar).loopOn);
 ~ch2.addLane( Lane.new.weight_(3).namedSample(\bass).loopOn);
-~ch2.addLane( Lane.new.weight_(inf).namedSample(\drums).loopOn.softStopOn);
-~ch2.addLane( Lane.new.weight_(1).namedSample(\vox));
+~ch2.addLane( Lane.new.weight_(inf).namedSample(\drums).loopOn);
+~ch2.addLane( Lane.new.weight_(1).namedSample(\vox).softStopOn);
 ~tc2 = TimeChooser.new;
 ~tc2.noseCone_(1);
-~tc2.addLane( TimeLane.new.beats_(5));
-~tc2.addLane( TimeLane.new.beats_(10));
+~tc2.addLane( TimeLane.new.beats_(4));
+~tc2.addLane( TimeLane.new.beats_(8));
 ~ch2.timeChooser_(~tc2);
+)
 
-
+(
 //  CREATE A CHOOSER 3
 ~ch3 = Xhooser.new;
 ~ch3.noseCone_(3);
@@ -40,9 +44,10 @@ TIME CHOOSER EXAMPLE
 ~ch3.addLane( Lane.new.weight_(1).namedSample(\vox));
 ~tc3 = TimeChooser.new;
 ~tc3.noseCone_(1);
-~tc3.addLane( TimeLane.new.beats_(6));
-~tc3.addLane( TimeLane.new.beats_(10));
+~tc3.addLane( TimeLane.new.beats_(2));
+~tc3.addLane( TimeLane.new.beats_(4));
 ~ch3.timeChooser_(~tc3);
+)
 
 
 // PLAY CHOOSER
@@ -56,10 +61,12 @@ TIME CHOOSER EXAMPLE
 
 
 // SCHEDULE  A Sequence of CHOOSERS
+(
 ~seq = Sequence.new;
 ~seq.add (~ch1);
 ~seq.add (~ch2);
 ~seq.add (~ch3);
+)
 ~seq.play;
 ~seq.playChosen // To study a single choice,  do play once first then use  playChosen, not play - freezes the choices.
 ~seq.inspect;

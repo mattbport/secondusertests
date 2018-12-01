@@ -52,4 +52,57 @@ Multiple instances of the error `ERROR: Message 'isSymbol' not understood.` - th
 ### Sequencing Choosers
 There seems to be a playback issue when sequencing Choosers. Specifically, timing does not appear to be accurate.
 
-**Need tests to find what is wrong**
+- Loops do not work - if a lane is shorter than the Time Chooser's duration, and the lane is set to loop, it does not look and there is a gap before the duration completes and the next Chooser starts.
+
+- Check single Chooser loops - should be infinite
+- Check various sequences
+- Check nesting behaviour
+- Make examples to cover the tests - new file etc.
+- Check GitHub functionality
+
+--------
+
+## Run through questions
+### S1
+S1 all fine
+
+### S2
+S2 all fine
+
+### S3
+S3 understanding fine
+
+S3 implementation:
+
+```
+// S3 implementation question
+(
+~ch1 = Xhooser.new;
+~ch1.noseCone_(3);
+~ch1.addLane( Lane.new.weight_(inf).namedSample(\drums).loopOn);
+~ch1.addLane( Lane.new.weight_(inf).namedSample(\bass).loopOn);
+~ch1.addLane( Lane.new.weight_(1).namedSample(\guitar).loopOn);
+~ch1.addLane( Lane.new.weight_(2).namedSample(\marimba).loopOn);
+ )
+
+~ch1.play;
+```
+
+**ISSUE** - Does not work correctly. Post window shows `playable not found` and repeated runs of the `play` message throws new errors. Seems to be due to the use of two infinitely weighted lanes.
+
+
+### S4
+Understanding Q - all fine
+
+**ISSUE** - same as in S3. There is an issue when there are 2 or more infinitely weighted lanes
+
+
+
+### S5
+
+
+
+
+
+### S6
+
