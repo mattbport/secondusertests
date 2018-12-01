@@ -1,5 +1,11 @@
 # Issue list
 
+- [ ] Soundable content needed in Time Choosers
+- [ ] Error when using multiple infinite-weighted lanes in Soundable Choosers. One infinite weight is fine - two or more throws an error
+- [ ] Multiple `ERROR: Message 'isSymbol' not understood` errors, but does not seem to be a showstopper
+
+-------------
+
 ## test.Xhooser4.scd
 
 `Lane` not working? Error thrown when creating a new lane: `~laneA = Lane.new;`
@@ -54,12 +60,6 @@ There seems to be a playback issue when sequencing Choosers. Specifically, timin
 
 - Loops do not work - if a lane is shorter than the Time Chooser's duration, and the lane is set to loop, it does not look and there is a gap before the duration completes and the next Chooser starts.
 
-- Check single Chooser loops - should be infinite
-- Check various sequences
-- Check nesting behaviour
-- Make examples to cover the tests - new file etc.
-- Check GitHub functionality
-
 --------
 
 ## Run through questions
@@ -99,10 +99,32 @@ Understanding Q - all fine
 
 
 ### S5
+Understanding Q - all fine, apart from the lack of soundable content in a time lane. How to add audio file to time lane?
 
+Implementation Q - cannot test due to the multiple infinite weight bug.
 
-
+```
+/────┬──────────────────┬───┬───┬───┐
+│    │    drums.wav     │ ∞ │x∞ │ h │
+│    ├──────────────────┼───┼───┼───┤
+│    │     bass.wav     │ 2 │x2 │ h │
+│ ∞  ├──────────────────┼───┼───┼───┤
+│    │    guitar.wav    │ 1 │x1 │ h │
+│    ├──────────────────┼───┼───┼───┤
+│    │     vox.wav      │ ∞ │x∞ │ s │
+├────┼──────────────────┴───┴───┼───┤
+│    │          4 bars          │ 2 │
+│    ├──────────────────────────┼───┤
+│ 1  │          6 bars          │ 1 │
+│    ├──────────────────────────┼───┤
+│    │          8 bars          │ 2 │
+\────┴──────────────────────────┴───┘
+```
 
 
 ### S6
 
+Should be OK if steering around known issues:
+
+- Multiple infinity weights in soundables;
+- No soundable content in time lanes.
