@@ -25,6 +25,10 @@ loopOff {
 loopStatus{
 		this.hasLoop.if( {^1}, {^0} )}
 
+isChooser {^false}
+
+isSymbol { ^ false}
+
 // CREATING & INITIALIZING =========
 
 *new { arg  aName, aWavName;
