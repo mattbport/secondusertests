@@ -127,16 +127,25 @@ nSequences { arg n;
 
 
 choose {   var sequenceDuration =0 ;
-		        choosers.do{ |eachChooser| eachChooser.chooseLanes};
-	             choosers.do {  |eachChooser|
-			eachChooser.duration.debug("duration of chooser");
-			sequenceDuration =
-			                              sequenceDuration + eachChooser.duration};
-		           this.duration_(sequenceDuration)
+		                       //choosers.debug("choosers in choose in Loopable");
+		        choosers.do{ |eachChooser| eachChooser.chooseLanes;
+			                    //eachChooser.duration.isNil.if { eachChooser.inspect };
+			                    //eachChooser.name.debug("Choose before first sequenced play");
+			                    // eachChooser.duration.debug("NEW CHOICE");
+		   	                    //  eachChooser.duration.debug("Chooser duration as chosen");
+			                         sequenceDuration = sequenceDuration + eachChooser.duration};
+		           this.duration_(sequenceDuration);
+		//this.duration.debug("Unused sequence duration as set");
+		//"===Ready to play above choices ====" .postln;
+		//"=========================".postln;
 
 	}	// duplicated in Xhooser wrapper
 
-play{
+	play{
+		//"=== FRESH PLAY OF SEQUENCE =====" .postln;
+		//"=========================".postln;
+
+		//this.debug("new choose in sequence");
            this.choose;
 	     // needed for fresh play, sequencing info & recursion
            ^ this.playChosen }
@@ -145,6 +154,7 @@ play{
 playChosen{
 		var arrayOfnThis;
      this.loopTimesIsOne.if{ ^ this.basicPlayChosen};
+		//this.debug("DOESNOT HAPPEN");
 	 arrayOfnThis= this.nSequences(this.loopTimes);
 	 arrayOfnThis.inject( 0, { arg startTimeInBeats, eachDummySequence ;
 			"start time of iteration".postln;
@@ -157,18 +167,22 @@ basicPlayChosen{
 		^ this.basicPlayChosenAt(0) }                       // these all return duration of the sequence
 
 basicPlayChosenAt{
-		// schedules once the basic sequence
-		arg firstStartTime;
-		var offsetStartTime;
+		       // schedules once the basic sequence
+		arg initialStartTime;
+		var offsetStartTime; //unused
 		timeline = List.new;
-		^ choosers.inject(0,{ arg nextStartTime, eachChooser;
-			                       	offsetStartTime = firstStartTime + nextStartTime;
+		                      // choosers.size.debug("Choosers size in basicPlayChosenAt");
+		choosers.do{ |eachChooser| // eachChooser.name.debug("firing order");
+		^ choosers.inject(initialStartTime,{ arg nextStartTime, eachChooser;
+			                       	//offsetStartTime = initialStartTime + nextStartTime;
 			                        // schedule cumulative starttime with fixed offset from method argument
-		                            this.schedule(offsetStartTime,  eachChooser );
+				                   this.schedule(nextStartTime,  eachChooser );
+					               //  nextStartTime.debug("when actually sequenced");
+			                       // eachChooser.duration.debug(" replied  durations after  Sequenced");
 			                        nextStartTime + eachChooser.duration} ) }
 	    // play returning duration of sequence is needed  for sequence with repeats to work sensibly
 	    //and need that for nested choosers to work - OH - read about scheduler basics....
 
-
+	}
 }
 
