@@ -5,6 +5,7 @@ Xhooser {
 	var <>chosenLanes;
 	var <> timeChooser;
 	var <> journal ;
+	var <> name;
 	   // but could record an event stream - instance of non det command pattern?
 	   // approx 1000 LOC total
 
@@ -12,7 +13,8 @@ Xhooser {
 init{
 	lanes = List.new;
 		chosenLanes = List.new;
-		journal = List.new
+		journal = List.new;
+		name ="Unnamed Chooser";
 	}
 
 *new { ^ super.new.init}
@@ -174,6 +176,7 @@ nonDeterministicLaneChoice {
 
 
 	chooseLanes{
+		//this.name.debug("in chooseLanes in Chooser");
 		this.hasActiveTimeChooser.if {  this.timeChooser.chooseLane  }; // EXCELLENT
 		this.nonDeterministicLaneChoice;
 		this.cleanChosenLanes;
@@ -210,6 +213,9 @@ nonDeterministicLaneChoice {
 
 // =========== PLAYING  AND SCHEDULING =====================
 
+playChosen{
+		^ this.playChosenLanes}
+
 
 playChosenLanes{  // doesn't choose fresh Lanes -  sticks with last choices
 		                        this.integrityCheck; // dont think has opportunity to do anything
@@ -244,6 +250,7 @@ stop { this.allChosenSynths.free}
 
 calculateSmartDurationWithChosenTimeLane {
 	   this.chosenLanes.do {|eachLane |
+			// eachLane.debug(" about to calculateSmartDurationWithChosenTimeLane");
 	         eachLane.calculateSmartDurationWithChosenTimeLaneForParent(this.chosenTimeLane)}}
 
 calculateSmartDurationWithNoActiveTimeLane{
@@ -263,7 +270,12 @@ durationOfChosenTimeLane{                     //just  to lower coupling in lane
 
 maxLaneDuration{
 		var durations;
-		durations = chosenLanes.collect{ arg eachLane, i;     eachLane.smartDuration};
+
+		durations = chosenLanes.collect{ arg eachLane, i;  //eachLane.debug("max laneduration");
+			//eachLane.sample.name.debug("lane name in MAX");
+			//eachLane.smartDuration.debug(" lane smartduration in MAX");
+			eachLane.smartDuration};
+			//durations.debug("SMART DURATIONS OF EACH LANE GIVEN TO FIND MAX")
 		^durations.maxItem{arg item, i; item}
 	}
 

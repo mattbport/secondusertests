@@ -25,6 +25,10 @@ loopOff {
 loopStatus{
 		this.hasLoop.if( {^1}, {^0} )}
 
+isChooser {^false}
+
+isSymbol { ^ false}
+
 // CREATING & INITIALIZING =========
 
 *new { arg  aName, aWavName;
@@ -76,6 +80,7 @@ play {   synth = Synth(this.name);
 
 hardPlay{ arg tcDuration;
 	     	 var  t =   TempoClock(SampleBank.tempo); // queried by lane & chooser
+		     this.hardDuration(tcDuration);  // tough bug to find on new plays
 		     this.play;
 		     t.sched( tcDuration,   {this.synth.free})
 	}
@@ -83,6 +88,7 @@ hardPlay{ arg tcDuration;
 
 softPlay{ arg tcDuration;
 	     	 var  t =   TempoClock(SampleBank.tempo);
+		     this.softDuration(tcDuration);  // tough bug to find on new plays
 		     (tcDuration <= this.basicDuration).if{this.loopOff;  this.synth.set(\loop, 0) };
               this.play;
 		                                                 // queried by lane & chooser
@@ -116,12 +122,19 @@ duration{
 
 hardDuration {arg duration;                                       // misleading name - its a setter
 		            this.smartDuration_(duration);
-		           ^  duration }  // queried by lane & chooser
+		//this.name.debug(" HARD duration  case in sample ");
+	 	//this.smartDuration.debug(" HARD smartDuration in sample");
+		           ^  this.smartDuration }  // queried by lane & chooser
 
 
 
 softDuration {arg duration;                                             // misleading name - its a setter
 		              this.smartDuration_(  this.basicDuration *    this.neededRepeatsFor(duration));
+				//this.debug(" smart duration is set here in soft case");
+		//this.name.debug(" SOFT duration  case in sample ");
+	   //this.smartDuration.debug(" SOFT Smart duration in sample");
+		//this.basicDuration.debug(" basic duration");
+		//this.neededRepeatsFor(duration).debug(" needed repeats for duration");
 		           ^  this.smartDuration }  // queried by lane & chooser
 
 

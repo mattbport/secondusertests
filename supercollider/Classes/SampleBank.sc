@@ -20,7 +20,9 @@ SampleBank{
 		samples.add(\vox -> Sample.new(\vox, "vox8"));
 		samples.add(\drums -> Sample.new(\drums ,"drums8"));
 		samples.add(\marimba -> Sample.new(\marimba ,"marimba4"));
-		samples.add(\bvs -> Sample.new(\bvs ,"bv8"));
+		samples.add(\bvs -> Sample.new(\bcs ,"bv8"));
+		samples.add(\bass2 -> Sample.new(\bass2, "bass8"));
+		samples.add(\synthbass -> Sample.new(\synthbass, "synthbass4"));
 
 		samples.keysValuesDo { |eachKey, eachValue|   eachValue.init};
 		"Wait before warming up".postln

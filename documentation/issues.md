@@ -1,8 +1,15 @@
 # Issue list
 
-- [ ] Soundable content needed in Time Choosers
-- [ ] Error when using multiple infinite-weighted lanes in Soundable Choosers. One infinite weight is fine - two or more throws an error
-- [ ] Multiple `ERROR: Message 'isSymbol' not understood` errors, but does not seem to be a showstopper
+- [ ] S4 - drums do not hard stop
+- [ ] S5 - audible in time chooser seems to only play when there is a non-infinite number in the soundable chooser nose cone - I can work around this
+- [ ] S5 - in `~ch2` the bass seems to run for only the latter 4 bars, and does not loop if the time chooser is set to 8 bars
+
+
+---------
+
+- [x] Soundable content needed in Time Choosers
+- [x] Error when using multiple infinite-weighted lanes in Soundable Choosers. One infinite weight is fine - two or more throws an error
+- [x] Multiple `ERROR: Message 'isSymbol' not understood` errors, but does not seem to be a showstopper
 
 -------------
 

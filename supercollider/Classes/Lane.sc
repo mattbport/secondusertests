@@ -8,7 +8,7 @@ Lane {
 	var <>loop;
 	var <>loopTimes;   // usually inf
 	var <>stop;
-	var <>sample;                // Sample has protocol -
+	var < sample;                // Sample has protocol -
 	                                       //play, duration, name, repeatTimes, synth
 	                                       // NESTING pretty sure could allow SAMPLE to be
 	                                       // chooser and so have nesting
@@ -16,6 +16,13 @@ Lane {
 	                                       //  given that Lane needs to know TC duration for soft & hard stop
 	                                       // but that  would be icky and make cleaning memory hard
 	                                       // so we pass time chooser to sample as a parameter when needed
+
+	sample_{
+		arg aSample;
+		sample = aSample.copy}
+
+
+
 
 *new { ^ super.new.init}
 
@@ -39,19 +46,22 @@ init{
 
 
 
+
+
 printOn { | aStream |
 
 		this.isNull.if { aStream << "a " << "null"  << this.class.name; ^aStream};
 		aStream << " ** " /*<< this.class.name */<< " w " << this.weight.asString ;
 		aStream << " "<<  this.stop.asString << " " ;
 		this.hasLoop.if( {   aStream <<  " loops "  });
-		this.sample.isNil.if{"Warning -  samples not loaded".postln;  ^ nil};
-		// this.sample.isSymbol.if( {   aStream <<  " " << this.sample.asString; ^aStream });
-		// this.sample.isNil.not.if( {   aStream <<  " " << this.sample.name.asString << " ";
-		// aStream << this.sample.basicDuration << " ";
-		// aStream <<  " smart " << this.smartDuration << " "
+		this.sample.isNil.if{this.sample.debug("Warning -  sample not found in sample bank");  ^ nil};
+		this.sample.isString.if{  this.sample.debug("Warning -   sample not loaded");  ^ nil};
+		this.sample.isSymbol.if( {   aStream <<  " " << this.sample.asString; ^aStream });
+		this.sample.isNil.not.if( {   aStream <<  " " << this.sample.name.asString << " ";
+			                                     aStream << this.sample.basicDuration << " ";
+			                                     aStream <<  " smart " << this.smartDuration << " "
 
-// });
+		});
 		^aStream}
 
 
@@ -162,6 +172,9 @@ playWithChosenTimeLaneForParent{   //KEY METHOD - NB  TAKES A PARAMETER
 
 		timeLaneDuration = chosenTimeLane.duration;
 		this.isNull.if {^nil};
+		this.sample.isNil.if { debug("Sample not loaded") };
+		this.sample.isString.if { this.sample.debug("Sample not loaded") ; ^nil};
+		this.sample.isSymbol.if { this.sample.debug("Sample not loaded") ; ^nil};
 		this.sample.isNil.if({ ^nil},
 			{ this.hasHardStop.if {this.sample.hardPlay(timeLaneDuration)};
 				this.hasSoftStop.if {this.sample.softPlay(timeLaneDuration)};
@@ -183,9 +196,7 @@ duration{
 
 localDuration{
 		(this.sample.class == DummySample).if { ^0 };
-		this.sample.isNil.if { this.debug ("in localDuration"); this.goDummy };  //Tidy up- nulls should just  be inited with a dummy
-			this.debug ("in localDuration2";
-			this.sample.isString.if{this.sample.inspect});
+		this.sample.isNil.if { this.goDummy };  //Tidy up- nulls should just  be inited with a dummy
 		^ (this.sample.duration) *  (this.loopDurationMultiplier) }
 
 
@@ -205,6 +216,11 @@ smartDuration{
 
 calculateSmartDurationWithNoActiveTimeLane{
 		this.sample.isNil.if { this.goDummy}; //Tidy up- nulls should just be inited with a dummy
+		this.sample.isNil.if { debug("Sample not loaded") };
+		this.sample.isString.if { this.sample.debug("Sample not loaded") };
+		this.sample.isSymbol.if { this.sample.debug("Sample not loaded") };
+
+
 		this.sample.smartDuration_(this.localDuration);
         ^this.localDuration }
 
@@ -213,16 +229,31 @@ calculateSmartDurationWithChosenTimeLaneForParent{  //KEY METHOD
 		                                                                             //- NB  TAKES A PARAMETER
 	arg chosenTimeLane, aParent;
 		var timeLaneDuration;
-		chosenTimeLane.isNil.if{ this.sample.smartDuration_(this.sample.basicDuration);
-			                                 ^this.sample.basicDuration };
+		chosenTimeLane.isNil.if{
+
+			this.sample.isNil.if { debug("Sample not loaded"); ^nil};
+			this.sample.isString.if { this.sample.debug("Sample not loaded"); ^nil};
+			this.sample.isSymbol.if { this.sample.debug("Sample not loaded"); ^nil};
+           // best we can do
+			this.sample.smartDuration_(this.sample.basicDuration)};
+
 
 		timeLaneDuration = chosenTimeLane.duration;
 
 		this.isNull.if {^nil};
-		this.sample.isNil.if({ ^nil},
-			{ this.hasHardStop.if {^ this.sample.hardDuration(timeLaneDuration)};  // misleading name - this is a setter
-				this.hasSoftStop.if { ^ this.sample.softDuration(timeLaneDuration)};  // misleading name - this is a setter
-		})
+		this.sample.isNil.if { debug("Sample not loaded"); ^nil};
+		this.sample.isString.if { this.sample.debug("Sample not loaded"); ^nil};
+		this.sample.isSymbol.if { this.sample.debug("Sample not loaded"); ^nil};
+		//this.debug("going for kill in lane");
+			this.hasHardStop.if {
+			//this.debug("hardstop");
+			^ this.sample.hardDuration(timeLaneDuration)};  // misleading name - this is a setter for sample
+
+				this.hasSoftStop.if {
+			//this.debug("softtop");
+			^ this.sample.softDuration(timeLaneDuration)};  // misleading name - this is a setter for sample
+		//this.debug.("neither hard not soft  in lane - should not happen");
+
 	}
 
 
