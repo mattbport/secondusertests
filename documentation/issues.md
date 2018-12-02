@@ -3,7 +3,7 @@
 - [ ] S4 - drums do not hard stop
 - [ ] S5 - audible in time chooser seems to only play when there is a non-infinite number in the soundable chooser nose cone - I can work around this
 - [ ] S5 - in `~ch2` the bass seems to run for only the latter 4 bars, and does not loop if the time chooser is set to 8 bars
-- 
+
 
 ---------
 
