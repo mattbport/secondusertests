@@ -122,19 +122,12 @@ duration{
 
 hardDuration {arg duration;                                       // misleading name - its a setter
 		            this.smartDuration_(duration);
-		//this.name.debug(" HARD duration  case in sample ");
-	 	//this.smartDuration.debug(" HARD smartDuration in sample");
 		           ^  this.smartDuration }  // queried by lane & chooser
 
 
 
 softDuration {arg duration;                                             // misleading name - its a setter
 		              this.smartDuration_(  this.basicDuration *    this.neededRepeatsFor(duration));
-				//this.debug(" smart duration is set here in soft case");
-		//this.name.debug(" SOFT duration  case in sample ");
-	   //this.smartDuration.debug(" SOFT Smart duration in sample");
-		//this.basicDuration.debug(" basic duration");
-		//this.neededRepeatsFor(duration).debug(" needed repeats for duration");
 		           ^  this.smartDuration }  // queried by lane & chooser
 
 

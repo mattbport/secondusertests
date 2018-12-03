@@ -128,6 +128,51 @@ TIME CHOOSER EXAMPLE
 ~ch1.play;
 
 
+////////////////////////////////////////////
+
+// Here is an example to show the current bug
+// The following two Choosers should be identical
+// The first has ∞ soundable nose cone with four lanes
+// The second uses the number 4 in the nose cone -> same result
+// However, the use of ∞ in the soundable nose cone seems to
+// prevent the soundable in the time chooser from playing
+
+(
+~ch1 = Xhooser.new;
+~ch1.noseCone_(inf); // No audible marimba
+~ch1.addLane( Lane.new.weight_(1).namedSample(\drums).loopOn);
+~ch1.addLane( Lane.new.weight_(1).namedSample(\bass).loopOn);
+~ch1.addLane( Lane.new.weight_(1).namedSample(\guitar).loopOn);
+~ch1.addLane( Lane.new.weight_(1).namedSample(\vox).loopOn.softStopOn);
+~tc1 = TimeChooser.new;
+~tc1.noseCone_(1);
+~tc1.addLane( TimeLane.new.weight_(2).beats_(4*4));
+~tc1.addLane( TimeLane.new.weight_(1).beats_(4*6));
+~tc1.addLane(TimeLane.new.weight_(inf).namedSample(\marimba).playable_(true));
+~ch1.timeChooser_(~tc1);
+)
+
+~ch1.play;
+
+
+(
+~ch1 = Xhooser.new;
+~ch1.noseCone_(4); // This makes the marimba audible
+~ch1.addLane( Lane.new.weight_(1).namedSample(\drums).loopOn);
+~ch1.addLane( Lane.new.weight_(1).namedSample(\bass).loopOn);
+~ch1.addLane( Lane.new.weight_(1).namedSample(\guitar).loopOn);
+~ch1.addLane( Lane.new.weight_(1).namedSample(\vox).loopOn.softStopOn);
+~tc1 = TimeChooser.new;
+~tc1.noseCone_(1);
+~tc1.addLane( TimeLane.new.weight_(2).beats_(4*4));
+~tc1.addLane( TimeLane.new.weight_(1).beats_(4*6));
+~tc1.addLane(TimeLane.new.weight_(inf).namedSample(\marimba).playable_(true));
+~ch1.timeChooser_(~tc1);
+)
+
+/////////////////////////////////////////////////
+
+
 
 // S5 implementation
 // First Chooser, no changes needed, all fine
@@ -144,6 +189,8 @@ TIME CHOOSER EXAMPLE
 ~tc2.addLane( TimeLane.new.weight_(1).beats_(4*8));
 ~ch2.timeChooser_(~tc2);
 )
+
+~ch2.play;
 
 // Second Chooser
 // ISSUE multiple infinite weights in the Soundable - error

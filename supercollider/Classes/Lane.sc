@@ -22,8 +22,6 @@ Lane {
 		sample = aSample.copy}
 
 
-
-
 *new { ^ super.new.init}
 
 *null { ^super.new}
@@ -36,6 +34,8 @@ Lane {
 	                                        // instead of goDummy Hack - tidy this up.
 	                                       // aha - but DummySample also handles case when Lane OK but sample is nil
 
+
+
 init{
 	weight = 1;
 	loop = false;
@@ -44,7 +44,16 @@ init{
 	}
 
 
-
+copy {
+	var me;
+	me = Lane.new;
+		me.weight(this.weight);
+		me.loop(this.loop);
+		me.loopTimes(this.loopTimes);
+		me.stop(this.stop); // copy
+		me.sample(this.sample.copy);
+		^ me
+	}
 
 
 
@@ -75,8 +84,11 @@ goDummy{ this.sample_(DummySample.new); ^ DummySample.new} //Tidy up - nulls sho
 	                                                                                                      // However also used when sample is nil
 //=============   TESTING Queries & Acessors   ====================
 
+hasNestedChooser{
+		^ this.sample.isChooser}
 
-isNull{
+
+	isNull{
 		^ (this.weight ==nil) }
 
 hasInfiniteWeight {
@@ -150,6 +162,7 @@ namedSample{
 //============ ACTIONS ================
 
 	play{
+		this.hasLoop.debug("value of has loop in play in Lane");
 		this.hasLoop.if {this.sample.loopOn};
 		  this.sample.play
 		//this.isNull.if {^nil};
@@ -176,7 +189,8 @@ playWithChosenTimeLaneForParent{   //KEY METHOD - NB  TAKES A PARAMETER
 		this.sample.isString.if { this.sample.debug("Sample not loaded") ; ^nil};
 		this.sample.isSymbol.if { this.sample.debug("Sample not loaded") ; ^nil};
 		this.sample.isNil.if({ ^nil},
-			{ this.hasHardStop.if {this.sample.hardPlay(timeLaneDuration)};
+			{   this.hasLoop.if {this.sample.loopOn};
+				this.hasHardStop.if {this.sample.hardPlay(timeLaneDuration)};
 				this.hasSoftStop.if {this.sample.softPlay(timeLaneDuration)};
 		})                                                   // needs to deal with case if lane is empty
         }
@@ -206,8 +220,17 @@ localDuration{
 // but are needed to sequence choosers correctly so that total durationof soft stops is known in advance
 // They are calculated here but stored in the sample
 
+sampleOK{
+		this.sample.isNil.if{  debug("sample not loaded in Lane quality check"); ^false};
+		this.sample.isSymbol.if{ debug("sample loaded only as symbol in Lane quality check - load SampleBank"); ^false};
+		this.sample.isString.if { debug("sample not in SamplBank"); ^false};
+	^ true}
+
+sampleNotOK { ^ this.sampleOK.not}
+
 
 smartDuration{
+		this.sampleNotOK.if {^0};
 		^this.sample.smartDuration}
 
 
@@ -245,13 +268,9 @@ calculateSmartDurationWithChosenTimeLaneForParent{  //KEY METHOD
 		this.sample.isString.if { this.sample.debug("Sample not loaded"); ^nil};
 		this.sample.isSymbol.if { this.sample.debug("Sample not loaded"); ^nil};
 		//this.debug("going for kill in lane");
-			this.hasHardStop.if {
-			//this.debug("hardstop");
-			^ this.sample.hardDuration(timeLaneDuration)};  // misleading name - this is a setter for sample
+			this.hasHardStop.if {^ this.sample.hardDuration(timeLaneDuration)};  // misleading name - this is a setter for sample
 
-				this.hasSoftStop.if {
-			//this.debug("softtop");
-			^ this.sample.softDuration(timeLaneDuration)};  // misleading name - this is a setter for sample
+				this.hasSoftStop.if {^ this.sample.softDuration(timeLaneDuration)};  // misleading name - this is a setter for sample
 		//this.debug.("neither hard not soft  in lane - should not happen");
 
 	}
