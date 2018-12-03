@@ -6,6 +6,8 @@ Xhooser {
 	var <> timeChooser;
 	var <> journal ;
 	var <> name;
+	var <> hasParent;
+	var <> myclocks;  // maye be needed for nesting -NO !! in wrapper!!
 	   // but could record an event stream - instance of non det command pattern?
 	   // approx 1000 LOC total
 
@@ -14,10 +16,27 @@ init{
 	lanes = List.new;
 		chosenLanes = List.new;
 		journal = List.new;
+		hasParent = false;
 		name ="Unnamed Chooser";
 	}
 
 *new { ^ super.new.init}
+
+
+copy {
+	var me;
+	me = Xhooser.new;
+		me.noseCone(this.noseCone);
+				me.lanes(this.lanes.copy); //deepcopy?
+				me.chosenLanes(this.chosenLanes.copy); //deepcopy?
+				me.timeChooser(this.timeChooser.copy); // copy
+				me.journal(this.journal.copy);
+				me.name (this.name);
+		^ me
+       // define copy for lanes & sample & time chooser -  all needed for loopableSequence
+	}
+
+
 
 // ====== LANE ADDING & REMOVAL  =========
 addLane{
@@ -39,6 +58,9 @@ addLane{
 
 
 // ========TESTING  QUERYING & Accessors ========
+
+isChooser {^true}
+
 noseConeIsInfinite{
 		^this.noseCone == inf}
 
@@ -156,7 +178,7 @@ nonDeterministicLaneChoice {
 
 	// infinite NoseCone
 		this.noseConeIsInfinite.if ({
-			       ^ this.chosenLanes_(this.nonZeroWeightedLanes) }) ;//and we are out
+			       ^ this.chosenLanes.addAll(this.nonZeroWeightedLanes) }) ;//and we are out
 
     // noseCone is not infinite but there are  too many priority boarders...
 	this.hasTooManyPriorityBoarders.if({ this.chooseWinnersFromTooManPriorityBoarders;  ^ chosenLanes  });
@@ -173,6 +195,10 @@ nonDeterministicLaneChoice {
 	//  make all (or any remaining) choices from from  solely finitely weighted lanes
 		 ^ this.chooseWinnersFromFiniteNonZeroWeightedLanes
 	         }
+
+choose{
+		^ this.chooseLanes}  // needed to let loopableSequecne nest cleanly
+	                                     // protocol polymorphism
 
 
 	chooseLanes{
@@ -214,7 +240,7 @@ nonDeterministicLaneChoice {
 // =========== PLAYING  AND SCHEDULING =====================
 
 playChosen{
-		^ this.playChosenLanes}
+		^ this.playChosenLanes}  // needed for neat nesting
 
 
 playChosenLanes{  // doesn't choose fresh Lanes -  sticks with last choices
@@ -243,7 +269,10 @@ pause{
 resume{
 		this.chosenLanes.do  { |eachLane | eachLane.resume} }
 
-stop { this.allChosenSynths.free}
+stop { this.free}
+	kill {this.stop  } //to give uniform nesting protovol in wrapper for nester Loopable S's }
+
+free { this.allChosenSynths.free}
 
 
 //========= DURATION =========
@@ -258,7 +287,7 @@ calculateSmartDurationWithNoActiveTimeLane{
 	                     eachLane.calculateSmartDurationWithNoActiveTimeLane}}
 
 duration{                                   // sequencer calls this to find out when to sequence
-		this.lanesNotChosenYet.if {"No choices made yet - should not happen".postln; ^0};
+		this.lanesNotChosenYet.if {this.debug("No choices made yet  when queying Chooser duration- should not happen"); ^0};
 	^	this.maxLaneDuration
 	}
 
