@@ -17,7 +17,7 @@ Questionnaire for participants: <https://goo.gl/forms/YHTjQz8HcXG0AEO52>
 
 ### Implementing
 
-Using the whiteboard, update the sequence to play the Amen break, then the bass hook, then the Amen break again, then stop.
+Using the whiteboard, update the sequence to play the marimba, then the bass hook, then the marimba again, then stop.
 
 
 
