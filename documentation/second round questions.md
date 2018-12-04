@@ -88,7 +88,7 @@ Using the example above as a starting point, you need to create the next musical
 * Select and play four out of six samples; the samples are `drums.wav`, `bass.wav`, `guitar.wav`, `marimba.wav`, `bvs.wav`, and `vox.wav`;
 * The `vox.wav` and `marimba.wav` samples are essential to the track, so they always have to be selected;
 * Of the other samples, the drums should be more likely to be selected;
-* The Chooser should run for a minimum of 8 bars, with all samples looping;
+* The Chooser should run for a minimum of 6 bars, with all samples looping;
 * The vocal tracks (`vox.wav`, `bvs.wav`) should be allowed to finish playing. The other tracks should stop as soon as 8 bars has elapsed.
 
 
@@ -115,7 +115,7 @@ Sketch out the previous example on the whiteboard, and make the following musica
 * Make it so the Full Chooser has a duration of either 4 or 8 bars, with hard stops on all lanes
 * Next, create a second Chooser and sequence it so it plays before this Chooser. The new Chooser should have the following characteristics:
 	* Drums and bass should always play, and should loop until hard-stopped;
-	* One of two vocal takes should play, looping until soft-stopped. The choice between them should be equal;
+	* Either the vocal or backing vocals should play, looping until soft-stopped. The choice between them should be equal;
 	* The Chooser should have a duration of 4 or 8 bars, with a 4 bar duration three times more likely to be chosen than an 8 bar duration.
 
 
