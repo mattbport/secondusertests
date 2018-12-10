@@ -25,6 +25,12 @@ TIME CHOOSER EXAMPLE
 ~seq.add (~ch1);
 ~seq.add (~ch2);
 )
+(
+~seq = Sequence.new;
+~seq.add (~ch1);
+~seq.add (~ch2);
+~seq.add (~ch1);
+)
 ~seq.play;
 
 ////////////////////////
@@ -100,7 +106,7 @@ TIME CHOOSER EXAMPLE
 // Issue - same as above - due to two infinitely weighted lanes?
 (
 ~ch2 = Xhooser.new;
-~ch2.noseCone_(3);
+~ch2.noseCone_(4);
 ~ch2.addLane( Lane.new.weight_(2).namedSample(\drums).loopOn);
 ~ch2.addLane( Lane.new.weight_(1).namedSample(\bass).loopOn);
 ~ch2.addLane( Lane.new.weight_(1).namedSample(\guitar).loopOn);
@@ -157,11 +163,11 @@ TIME CHOOSER EXAMPLE
 ~ch1.addLane( Lane.new.weight_(1).namedSample(\drums).loopOn);
 ~ch1.addLane( Lane.new.weight_(1).namedSample(\bass).loopOn);
 ~ch1.addLane( Lane.new.weight_(1).namedSample(\guitar).loopOn);
-~ch1.addLane( Lane.new.weight_(inf).namedSample(\vox).loopOn);
+~ch1.addLane( Lane.new.weight_(inf).namedSample(\vox).loopOn.softStopOn);
 ~tc1 = TimeChooser.new;
 ~tc1.noseCone_(1);
 ~tc1.addLane( TimeLane.new.weight_(1).beats_(4*4));
-~tc1.addLane( TimeLane.new.weight_(1).beats_(4*8));
+~tc1.addLane( TimeLane.new.weight_(1).beats_(4*6));
 ~ch1.timeChooser_(~tc1);
 )
 
